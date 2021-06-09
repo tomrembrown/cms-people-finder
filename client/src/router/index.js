@@ -16,6 +16,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
+  {
+    path: '/:catchAll(.*)',
+    component: () =>
+      import(/* webpackChunkName: "notfound" */ '../views/NotFound.vue'),
+    name: 'NotFound',
+  },
 ]
 
 const router = createRouter({
