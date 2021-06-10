@@ -23,14 +23,15 @@ export default {
 #home__graphic {
   margin: 0 auto;
   padding: 2em 0;
-  width: 18em;
+  width: auto;
   display: grid;
-  gap: 0.8em;
+  gap: 0em;
   grid-template-columns: 15% 85%;
 }
 
 #home__graphic__logo {
   grid-row: span 2;
+  width: 60px;
   justify-items: center;
   align-self: center;
 }
@@ -42,6 +43,7 @@ export default {
   color: d.$font-color-1;
   margin: 0;
   margin-top: -0.2em;
+  margin-left: -1em;
   padding: 0;
   padding-left: 0.4em;
 }
@@ -54,7 +56,7 @@ export default {
   font-weight: 300;
   color: d.$font-color-2;
   margin: 0;
-  margin-top: -0.1em;
+  margin-top: 0.9em;
   padding: 0;
   padding-left: 0.7em;
 }

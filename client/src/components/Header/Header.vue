@@ -46,23 +46,5 @@ export default {
       margin-top: 0.2em;
     }
   }
-
-  nav {
-    margin-right: 0.5rem;
-
-    ul {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 0.875rem;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: auto;
-
-      li {
-        display: inline;
-      }
-    }
-  }
 }
 </style>

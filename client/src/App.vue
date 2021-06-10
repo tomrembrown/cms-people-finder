@@ -23,11 +23,14 @@ export default {
   font-size: 16px;
 }
 
-body {
-  font-family: 'Work Sans', sans-serif;
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
 }
 
 #app {
@@ -53,9 +56,12 @@ main {
   display: block;
   border: 1px solid;
   padding: 0.5em 1em;
+  font-size: 0.9em;
+  width: 8em;
   margin: 0.5em;
   border-radius: 0.5em;
   text-align: center;
+  cursor: pointer;
   background-color: d.$icon-gradient-1;
   color: d.$font-color-2;
 

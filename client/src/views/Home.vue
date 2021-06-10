@@ -3,6 +3,9 @@
     <div id="home__inner">
       <HomePageGraphic />
       <div id="home__buttons" class="button">
+        <button>Sign Up</button>
+        <button>Log In</button>
+        <router-link to="/browse">Find People</router-link>
         <router-link to="/about">About Us</router-link>
       </div>
     </div>
@@ -23,6 +26,7 @@ export default {
 <style lang="scss">
 #home {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
@@ -32,14 +36,10 @@ export default {
     display: inline-block;
 
     #home__buttons {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 1em;
-    }
+      display: grid;
 
-    #home__buttons > a {
-      width: 6em;
+      grid-template-columns: repeat(2, 1fr);
+      padding-bottom: 1em;
     }
   }
 }
