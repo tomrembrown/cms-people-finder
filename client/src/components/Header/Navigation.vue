@@ -2,10 +2,10 @@
   <nav>
     <ul>
       <li key="signup" class="button">
-        <button>Sign Up</button>
+        <button @click="showSignup">Sign Up</button>
       </li>
       <li key="login" class="button">
-        <button>Log In</button>
+        <button @click="showLogin">Log In</button>
       </li>
       <li key="browse" class="button">
         <router-link to="/browse">Find People</router-link>
@@ -18,8 +18,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Navigation',
+  methods: {
+    ...mapActions(['showLogin', 'showSignup']),
+  },
 }
 </script>
 

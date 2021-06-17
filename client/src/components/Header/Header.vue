@@ -2,7 +2,7 @@
   <header id="main-site-header">
     <span id="branding">
       <Logo />
-      <h1>Ashroh CMS &amp; People Finder</h1>
+      <h1>Ashroh People Finder</h1>
     </span>
     <Navigation />
   </header>
@@ -39,11 +39,13 @@ export default {
 
     h1 {
       font: {
-        size: 1.125rem;
-        weight: lighter;
+        size: 1.6rem;
+        weight: 600;
+        family: 'Cabin', sans-serif;
       }
-      margin-left: 0.6em;
-      margin-top: 0.2em;
+      color: d.$font-color-1;
+      margin-left: 0.4em;
+      margin-top: 0.1em;
     }
   }
 }

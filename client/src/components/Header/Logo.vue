@@ -1,5 +1,7 @@
 <template>
-  <div role="presentation" id="main-site-header__logo"><AshrohSVGLogo /></div>
+  <div role="presentation" id="main-site-header__logo">
+    <AshrohSVGLogo size="35" />
+  </div>
 </template>
 
 <script>

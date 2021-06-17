@@ -3,8 +3,8 @@
     <div id="home__inner">
       <HomePageGraphic />
       <div id="home__buttons" class="button">
-        <button>Sign Up</button>
-        <button>Log In</button>
+        <button @click="showSignup">Sign Up</button>
+        <button @click="showLogin">Log In</button>
         <router-link to="/browse">Find People</router-link>
         <router-link to="/about">About Us</router-link>
       </div>
@@ -14,11 +14,15 @@
 
 <script>
 import HomePageGraphic from '@/components/Home/HomePageGraphic.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     HomePageGraphic,
+  },
+  methods: {
+    ...mapActions(['showLogin', 'showSignup']),
   },
 }
 </script>

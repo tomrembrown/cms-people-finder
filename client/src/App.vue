@@ -1,16 +1,19 @@
 <template>
   <Header />
   <router-view />
+  <Modal />
   <Footer />
 </template>
 
 <script>
 import Header from '@/components/Header/Header'
+import Modal from '@/components/Modal/Modal'
 import Footer from '@/components/Footer/Footer'
 
 export default {
   components: {
     Header,
+    Modal,
     Footer,
   },
 }
@@ -54,23 +57,31 @@ main {
 .button > button {
   text-decoration: none;
   display: block;
-  border: 1px solid;
+  border: 1.5px solid #555;
   padding: 0.5em 1em;
   font-size: 0.9em;
   width: 8em;
-  margin: 0.5em;
+  margin: 0.3em;
   border-radius: 0.5em;
   text-align: center;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+  top: 0px;
   cursor: pointer;
   background-color: d.$icon-gradient-1;
   color: d.$font-color-2;
+  transition: background-color 0.2s, color 0.2s, top 0.1s, box-shadow 0.1s;
 
   &:focus,
-  &:hover,
-  &:active,
-  &.active {
+  &:hover {
     background-color: d.$icon-gradient-0;
     color: d.$font-color-1;
+  }
+
+  &:active,
+  &.active {
+    top: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 }
 </style>
