@@ -8,7 +8,11 @@
       aria-describedby="modal-description"
       v-if="visible"
     >
-      <div class="modal-content" role="document">
+      <div
+        class="modal-content"
+        :class="`${component_lower}_size`"
+        role="document"
+      >
         <header>
           <h3 id="modal-title">
             {{ title }}
@@ -45,6 +49,9 @@ export default {
       component: 'modalComponent',
       title: 'modalTitle',
     }),
+    component_lower() {
+      return this.component ? this.component.toLowerCase() : ''
+    },
   },
   created() {
     const escapeHandler = (e) => {
@@ -75,12 +82,21 @@ export default {
   padding-top: 2%;
   z-index: 2000;
 
-  .modal-content {
+  .login_size {
     width: 95vw;
     max-width: 20rem;
     height: 90vh;
     max-height: 20rem;
+  }
 
+  .signup_size {
+    width: 95vw;
+    max-width: 22rem;
+    height: 90vh;
+    max-height: 25.5rem;
+  }
+
+  .modal-content {
     position: relative;
     overflow: auto;
 
@@ -136,6 +152,11 @@ export default {
       font-weight: 600;
       display: block;
       text-align: center;
+
+      .modal-label-description {
+        font-style: italic;
+        font-size: 0.75rem;
+      }
     }
 
     input[type] {
