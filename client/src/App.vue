@@ -53,6 +53,13 @@ main {
   background-color: d.$background-color;
 }
 
+.error {
+  color: red;
+  font-style: italic;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
 .button > a,
 .button > button {
   text-decoration: none;
@@ -71,6 +78,15 @@ main {
   background-color: d.$icon-gradient-1;
   color: d.$font-color-2;
   transition: background-color 0.2s, color 0.2s, top 0.1s, box-shadow 0.1s;
+
+  &.disabled,
+  &:disabled {
+    border-color: #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 
   &:focus,
   &:hover {

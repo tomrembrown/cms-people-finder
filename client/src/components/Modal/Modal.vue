@@ -86,14 +86,14 @@ export default {
     width: 95vw;
     max-width: 20rem;
     height: 90vh;
-    max-height: 20rem;
+    max-height: 17rem;
   }
 
   .signup_size {
     width: 95vw;
-    max-width: 22rem;
+    max-width: 24rem;
     height: 90vh;
-    max-height: 25.5rem;
+    max-height: 29rem;
   }
 
   .modal-content {
@@ -104,6 +104,7 @@ export default {
     margin: 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.3);
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    background-color: d.$background-color;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -141,8 +142,9 @@ export default {
     }
 
     .modal-main {
+      align-self: center;
       grid-area: modal-main;
-      padding: 0.75rem 2rem 2.5rem 2rem;
+      padding: 0.75rem 2rem 1.5rem 2rem;
       background-color: d.$background-color;
     }
 
@@ -201,5 +203,9 @@ export default {
 .modal-fade-enter-active,
 .modal-fade-leave-active {
   transition: opacity 0.5s ease;
+}
+
+.subsequent-row {
+  margin-top: 0.3rem;
 }
 </style>
