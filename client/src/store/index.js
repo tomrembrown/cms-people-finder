@@ -5,6 +5,7 @@ export default createStore({
     modalVisible: false,
     modalComponent: null,
     modalTitle: 'title',
+    isSignedIn: false,
   },
   mutations: {
     showModal(state, payload) {
@@ -14,6 +15,12 @@ export default createStore({
     },
     closeModal(state) {
       state.modalVisible = false
+    },
+    successfullySignedIn(state) {
+      state.isSignedIn = true
+    },
+    signout(state) {
+      state.isSignedIn = false
     },
   },
   actions: {
@@ -30,6 +37,12 @@ export default createStore({
         componentTitle: 'Sign Up',
       }
       commit('showModal', payload)
+    },
+    signup({ commit }) {
+      commit('successfullySignedIn')
+    },
+    login({ commit }) {
+      commit('successfullySignedIn')
     },
   },
   modules: {},

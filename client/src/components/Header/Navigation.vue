@@ -1,28 +1,35 @@
 <template>
   <nav>
     <ul>
-      <li key="signup" class="button">
-        <button @click="showSignup">Sign Up</button>
-      </li>
-      <li key="login" class="button">
-        <button @click="showLogin">Log In</button>
-      </li>
       <li key="browse" class="button">
         <router-link to="/browse">Find People</router-link>
       </li>
       <li key="about" class="button">
         <router-link to="/about">About Us</router-link>
       </li>
+      <li key="login" class="button" v-if="!isSignedIn">
+        <button @click="showLogin">Log In</button>
+      </li>
+      <li key="signup" class="button" v-if="!isSignedIn">
+        <button @click="showSignup">Sign Up</button>
+      </li>
+      <li key="signup" class="button" v-if="isSignedIn">
+        <button @click="signout">Sign Out</button>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Navigation',
+  computed: {
+    ...mapState(['isSignedIn']),
+  },
   methods: {
+    ...mapMutations(['signout']),
     ...mapActions(['showLogin', 'showSignup']),
   },
 }

@@ -3,17 +3,15 @@
     <div class="email-holder">
       <label for="email">Email</label>
       <input type="email" id="email" v-model="email" />
-      <div class="error" v-if="isEmailWrong">{{ emailErrorMessage }}</div>
     </div>
     <div class="password-holder subsequent-row">
       <label for="password">Password</label>
       <input type="password" id="password" v-model="password" />
-      <div class="error" v-if="isPasswordWrong">{{ passwordErrorMessage }}</div>
     </div>
   </section>
   <footer class="button">
     <button
-      @click="login"
+      @click="loginLocal"
       :class="canSubmit ? '' : 'disabled'"
       :disabled="!canSubmit"
     >
@@ -24,7 +22,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -38,9 +36,10 @@ export default {
     ...mapMutations({
       close: 'closeModal',
     }),
-    login() {
+    ...mapActions(['login']),
+    loginLocal() {
       if (this.canSubmit) {
-        // Send to server
+        this.login()
         this.close()
       }
     },

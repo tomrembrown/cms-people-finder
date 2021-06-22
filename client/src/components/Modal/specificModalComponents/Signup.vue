@@ -53,7 +53,7 @@
       {{ generalErrorMessage }}
     </div>
     <button
-      @click="signup"
+      @click="signupLocal"
       :class="canSubmit ? '' : 'disabled'"
       :disabled="!canSubmit"
     >
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import doValidation from '@/validation/doValidation'
 //const EMAIL_TAKEN_MESSAGE = 'Account already exists for email. Please sign in'
 const INVALID_VERIFY_PASSWORD_MESSAGE = 'Passwords do not match'
@@ -109,6 +109,7 @@ export default {
     ...mapMutations({
       close: 'closeModal',
     }),
+    ...mapActions(['signup', 'closeModalAction']),
     validate(field) {
       const result = doValidation(field, this[field])
       const fieldProperCase = field.charAt(0).toUpperCase() + field.slice(1)
@@ -132,10 +133,10 @@ export default {
         this[`${field}ErrorMessage`] = result.errorMessage
       }
     },
-    signup() {
+    signupLocal() {
       if (this.canSubmit) {
-        // Send to server
         this.close()
+        this.signup()
       }
     },
   },
