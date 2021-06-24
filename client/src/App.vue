@@ -60,6 +60,11 @@ main {
   text-align: left;
 }
 
+.generalerror {
+  text-align: center;
+  padding-top: 1rem;
+}
+
 .button > a,
 .button > button {
   text-decoration: none;

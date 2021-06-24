@@ -18,7 +18,9 @@ if (process.env.NODE_ENV === 'production') {
 const express = require('express')
 const cors = require('cors')
 
-// Require the controllers for the REST API
+// Require the routes for the REST API
+const authRoutes = require('./routes/auth')
+const profileRoutes = require('./routes/profile')
 
 const app = express()
 
@@ -31,14 +33,9 @@ app.disable('x-powered-by')
 
 app.set('port', process.env.PORT)
 
-// CRUD REST API endpoints
-// Create
-
-//Read
-
-//Update
-
-//Delete
+// REST API endpoints
+app.use(authRoutes)
+app.use(profileRoutes)
 
 let logString =
   'Express started on ' + app.get('port') + '; press Ctrl-C to terminate'

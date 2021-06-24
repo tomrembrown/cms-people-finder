@@ -86,7 +86,7 @@ export default {
     width: 95vw;
     max-width: 20rem;
     height: 90vh;
-    max-height: 17rem;
+    max-height: 19rem;
   }
 
   .signup_size {

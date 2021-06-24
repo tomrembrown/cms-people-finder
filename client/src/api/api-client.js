@@ -1,18 +1,17 @@
-//const endpoint = 'https://hebrewalphabetgame.com:3010/'
 const endpoint = process.env.VUE_APP_API_URL + '/'
 
-export const register = (user_handle, email, password) => {
+export const signup = (user_handle, email, password) => {
   const data = { user_handle, email, password }
-  return fetch(endpoint + 'register', {
+  return fetch(endpoint + 'signup', {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify(data),
   }).then((response) => response.json())
 }
 
-export const signin = (email, password) => {
+export const login = (email, password) => {
   const data = { email, password }
-  return fetch(endpoint + 'signin', {
+  return fetch(endpoint + 'login', {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify(data),
@@ -21,12 +20,6 @@ export const signin = (email, password) => {
 
 export const getProfile = (id) => {
   return fetch(endpoint + 'profile/' + id, {
-    method: 'GET',
-  }).then((response) => response.json())
-}
-
-export const getScoreList = () => {
-  return fetch(endpoint + 'scoreList', {
     method: 'GET',
   }).then((response) => response.json())
 }

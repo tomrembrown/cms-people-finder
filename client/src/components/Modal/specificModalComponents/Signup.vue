@@ -33,7 +33,9 @@
         v-model="password"
         @keyup="validate('password')"
       />
-      <div class="error" v-if="isPasswordWrong">{{ passwordErrorMessage }}</div>
+      <div class="error" v-if="isPasswordWrong">
+        {{ passwordErrorMessage }}
+      </div>
     </div>
     <div class="verify_password-holder subsequent-row">
       <label for="verify_password">Verify Password</label>
@@ -49,9 +51,6 @@
     </div>
   </section>
   <footer class="button">
-    <div class="error generalerror" v-if="isGeneralError">
-      {{ generalErrorMessage }}
-    </div>
     <button
       @click="signupLocal"
       :class="canSubmit ? '' : 'disabled'"
@@ -64,11 +63,17 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
-import doValidation from '@/validation/doValidation'
-//const EMAIL_TAKEN_MESSAGE = 'Account already exists for email. Please sign in'
-const INVALID_VERIFY_PASSWORD_MESSAGE = 'Passwords do not match'
-//const LOGIN_GENERAL_ERROR_MESSAGE = 'Invalid User Credentials'
+import { mapMutations } from 'vuex'
+import {
+  doValidation,
+  INVALID_VERIFY_PASSWORD_MESSAGE,
+  INVALID_EMAIL_MESSAGE,
+  INVALID_PASSWORD_MESSAGE,
+  INVALID_HANDLE_MESSAGE,
+  EMAIL_TAKEN_MESSAGE,
+  HANDLE_TAKEN_MESSAGE,
+} from '@/validation/doValidation'
+import { signup } from '@/api/api-client'
 
 export default {
   name: 'Signup',
@@ -86,8 +91,6 @@ export default {
       passwordErrorMessage: '',
       isVerifyPasswordWrong: false,
       verifyPasswordErrorMessage: '',
-      isGeneralError: false,
-      generalErrorMessage: '',
     }
   },
   computed: {
@@ -100,18 +103,32 @@ export default {
         !this.isHandleWrong &&
         !this.isEmailWrong &&
         !this.isPasswordWrong &&
-        !this.isVerifyPasswordWrong &&
-        !this.isGeneralError
+        !this.isVerifyPasswordWrong
       )
     },
   },
   methods: {
     ...mapMutations({
       close: 'closeModal',
+      loadUser: 'loadUser',
+      successfullySignedIn: 'successfullySignedIn',
     }),
-    ...mapActions(['signup', 'closeModalAction']),
-    validate(field) {
-      const result = doValidation(field, this[field])
+    clearForm() {
+      this.handle = ''
+      this.email = ''
+      this.password = ''
+      this.verify_password = ''
+      this.isHandleWrong = false
+      this.handleErrorMessage = ''
+      this.isEmailWrong = false
+      this.emailErrorMessage = ''
+      this.isPasswordWrong = false
+      this.passwordErrorMessage = ''
+      this.isVerifyPasswordWrong = false
+      this.verifyPasswordErrorMessage = ''
+    },
+    async validate(field) {
+      const result = await doValidation(field, this[field])
       const fieldProperCase = field.charAt(0).toUpperCase() + field.slice(1)
       if (result.validationOK) {
         // Most checks have been done - perform additional one here for comparing password and verify_password - since two fields
@@ -135,8 +152,41 @@ export default {
     },
     signupLocal() {
       if (this.canSubmit) {
-        this.close()
-        this.signup()
+        signup(this.handle, this.email, this.password).then((user) => {
+          if (user && user.id) {
+            // User signed up ok
+            this.loadUser(user)
+            this.clearForm()
+            this.successfullySignedIn()
+            this.close()
+          } else {
+            // Fill in errors
+            if (/invalid/.test(user)) {
+              if (/invalid email/.test(user)) {
+                this.isEmailWrong = true
+                this.emailErrorMessage = INVALID_EMAIL_MESSAGE
+              }
+              if (/invalid password/.test(user)) {
+                this.isPasswordWrong = true
+                this.passwordErrorMessage = INVALID_PASSWORD_MESSAGE
+              }
+              if (/invalid user_handle/.test(user)) {
+                this.isUserHandleWrong = true
+                this.userHandleErrorMessage = INVALID_HANDLE_MESSAGE
+              }
+            }
+            if (/taken/.test(user)) {
+              if (/email/.test(user)) {
+                this.isEmailWrong = true
+                this.emailErrorMessage = EMAIL_TAKEN_MESSAGE
+              }
+              if (/user_handle/.test(user)) {
+                this.isUserHandleWrong = true
+                this.userHandleErrorMessage = HANDLE_TAKEN_MESSAGE
+              }
+            }
+          }
+        })
       }
     },
   },

@@ -8,6 +8,9 @@
       <label for="password">Password</label>
       <input type="password" id="password" v-model="password" />
     </div>
+    <div class="error generalerror" v-if="isGeneralError">
+      {{ generalErrorMessage }}
+    </div>
   </section>
   <footer class="button">
     <button
@@ -22,7 +25,9 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { LOGIN_GENERAL_ERROR_MESSAGE } from '@/validation/doValidation'
+import { mapMutations } from 'vuex'
+import { login } from '@/api/api-client'
 
 export default {
   name: 'Login',
@@ -30,17 +35,36 @@ export default {
     return {
       email: '',
       password: '',
+      isGeneralError: false,
+      generalErrorMessage: '',
     }
   },
   methods: {
     ...mapMutations({
       close: 'closeModal',
+      loadUser: 'loadUser',
+      successfullySignedIn: 'successfullySignedIn',
     }),
-    ...mapActions(['login']),
+    clearForm() {
+      this.email = ''
+      this.password = ''
+      this.isGeneralError = false
+      this.generalErrorMessage = ''
+    },
     loginLocal() {
       if (this.canSubmit) {
-        this.login()
-        this.close()
+        login(this.email, this.password).then((user) => {
+          if (user && user.id) {
+            // User logged in ok
+            this.loadUser(user)
+            this.clearForm()
+            this.successfullySignedIn()
+            this.close()
+          } else {
+            this.isGeneralError = true
+            this.generalErrorMessage = LOGIN_GENERAL_ERROR_MESSAGE
+          }
+        })
       }
     },
   },

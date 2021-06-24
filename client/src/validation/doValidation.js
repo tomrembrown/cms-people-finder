@@ -1,32 +1,39 @@
+import { checkHandleTaken } from '@/api/api-client'
 import {
   validateEmail,
   validatePassword,
   validateUserHandle,
 } from './commonValidation'
 
-const INVALID_HANDLE_MESSAGE = 'Handle must be between 3 and 25 characters long'
-// const HANDLE_TAKEN_MESSAGE = 'User Handle already taken'
-const INVALID_EMAIL_MESSAGE = 'Invalid email'
-const INVALID_PASSWORD_MESSAGE = 'Password is 8 to 20 non-whitespace characters'
-const FIELD_NOT_FOUND_MESSAGE = 'That field was not found in validation.js file'
+export const INVALID_HANDLE_MESSAGE =
+  'Handle must be between 3 and 25 characters long'
+export const HANDLE_TAKEN_MESSAGE = 'User Handle already taken'
+export const INVALID_EMAIL_MESSAGE = 'Invalid email'
+export const INVALID_PASSWORD_MESSAGE =
+  'Password is 8 to 20 non-whitespace characters'
+export const FIELD_NOT_FOUND_MESSAGE =
+  'That field was not found in validation.js file'
+export const EMAIL_TAKEN_MESSAGE =
+  'Account already exists for email. Please sign in'
+export const INVALID_VERIFY_PASSWORD_MESSAGE = 'Passwords do not match'
+export const LOGIN_GENERAL_ERROR_MESSAGE = 'Invalid User Credentials'
 
-const doValidation = (field, value) => {
+export const doValidation = async (field, value) => {
   const result = {
     validationOK: false,
-    errorMessage: FIELD_NOT_FOUND_MESSAGE,
+    errorMessage: field + ' was not found in doValidation.js',
   }
 
   switch (field) {
     case 'handle':
       if (validateUserHandle(value)) {
-        // checkHandleTaken(value).then((data) => {
-        //   if (data.handleTaken) {
-        //     result.errorMessage = HANDLE_TAKEN_MESSAGE
-        //   } else {
-        result.validationOK = true
-        result.errorMessage = null
-        // }
-        // })
+        const data = await checkHandleTaken(value)
+        if (data.handleTaken) {
+          result.errorMessage = HANDLE_TAKEN_MESSAGE
+        } else {
+          result.validationOK = true
+          result.errorMessage = null
+        }
       } else {
         result.errorMessage = INVALID_HANDLE_MESSAGE
       }
@@ -55,5 +62,3 @@ const doValidation = (field, value) => {
   }
   return result
 }
-
-export default doValidation

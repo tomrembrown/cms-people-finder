@@ -6,6 +6,8 @@ export default createStore({
     modalComponent: null,
     modalTitle: 'title',
     isSignedIn: false,
+    user_id: null,
+    user_handle: null,
   },
   mutations: {
     showModal(state, payload) {
@@ -22,6 +24,10 @@ export default createStore({
     signout(state) {
       state.isSignedIn = false
     },
+    loadUser(state, user) {
+      state.user_id = Number(user.id)
+      state.user_handle = user.user_handle
+    },
   },
   actions: {
     showLogin({ commit }) {
@@ -37,12 +43,6 @@ export default createStore({
         componentTitle: 'Sign Up',
       }
       commit('showModal', payload)
-    },
-    signup({ commit }) {
-      commit('successfullySignedIn')
-    },
-    login({ commit }) {
-      commit('successfullySignedIn')
     },
   },
   modules: {},
