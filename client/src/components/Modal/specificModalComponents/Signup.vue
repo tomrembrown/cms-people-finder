@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import {
   doValidation,
   INVALID_VERIFY_PASSWORD_MESSAGE,
@@ -111,6 +111,8 @@ export default {
     ...mapMutations({
       close: 'closeModal',
       loadUser: 'loadUser',
+    }),
+    ...mapActions({
       successfullySignedIn: 'successfullySignedIn',
     }),
     clearForm() {

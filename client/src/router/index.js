@@ -17,6 +17,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ '@/views/About.vue'),
   },
   {
+    path: '/myprofile',
+    name: 'My Profile',
+    component: () =>
+      import(/* webpackChunkName: "myprofile" */ '@/views/MyProfile.vue'),
+  },
+  {
     path: '/:catchAll(.*)',
     component: () =>
       import(/* webpackChunkName: "notfound" */ '@/views/NotFound.vue'),

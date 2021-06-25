@@ -26,7 +26,7 @@
 
 <script>
 import { LOGIN_GENERAL_ERROR_MESSAGE } from '@/validation/doValidation'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import { login } from '@/api/api-client'
 
 export default {
@@ -43,6 +43,8 @@ export default {
     ...mapMutations({
       close: 'closeModal',
       loadUser: 'loadUser',
+    }),
+    ...mapActions({
       successfullySignedIn: 'successfullySignedIn',
     }),
     clearForm() {

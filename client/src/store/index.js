@@ -1,3 +1,4 @@
+import router from '@/router'
 import { createStore } from 'vuex'
 
 export default createStore({
@@ -18,10 +19,10 @@ export default createStore({
     closeModal(state) {
       state.modalVisible = false
     },
-    successfullySignedIn(state) {
+    setSignedIn(state) {
       state.isSignedIn = true
     },
-    signout(state) {
+    setSignedOut(state) {
       state.isSignedIn = false
     },
     loadUser(state, user) {
@@ -43,6 +44,14 @@ export default createStore({
         componentTitle: 'Sign Up',
       }
       commit('showModal', payload)
+    },
+    successfullySignedIn({ commit }) {
+      commit('setSignedIn')
+      router.push('/myprofile')
+    },
+    signout({ commit }) {
+      commit('setSignedOut')
+      router.push('/')
     },
   },
   modules: {},

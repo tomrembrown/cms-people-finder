@@ -1,6 +1,9 @@
 <template>
   <nav>
     <ul>
+      <li key="browse" class="button" v-if="isSignedIn">
+        <router-link to="/myprofile">My Profile</router-link>
+      </li>
       <li key="browse" class="button">
         <router-link to="/browse">Find People</router-link>
       </li>
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Navigation',
@@ -29,8 +32,7 @@ export default {
     ...mapState(['isSignedIn']),
   },
   methods: {
-    ...mapMutations(['signout']),
-    ...mapActions(['showLogin', 'showSignup']),
+    ...mapActions(['showLogin', 'showSignup', 'signout']),
   },
 }
 </script>
