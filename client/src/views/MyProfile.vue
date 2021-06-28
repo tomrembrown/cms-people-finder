@@ -8,7 +8,7 @@
         <img src="@/assets/profilephoto.png" alt="Profile Picture" />
       </div>
       <section class="profileHeader">
-        <h2>JOHN DOE</h2>
+        <h2>{{ handle }}</h2>
         <h3>TOTALLY AWESOME MANIFESTATION OF INFINITE CONSCIOUSNESS</h3>
         <hr />
         <p>
@@ -42,6 +42,19 @@
     </header>
   </main>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'MyProfile',
+  computed: {
+    ...mapState({
+      handle: 'user_handle',
+    }),
+  },
+}
+</script>
 
 <style lang="scss">
 @use '@/displaysettings.scss' as d;
@@ -96,11 +109,12 @@
       grid-area: info;
 
       h2 {
+        text-transform: uppercase;
         color: d.$font-color-1;
         font-size: 1.875rem;
         font-weight: 700;
         line-height: 1.5rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
       }
 
       h3 {
