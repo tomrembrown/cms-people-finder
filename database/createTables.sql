@@ -23,6 +23,8 @@ CREATE TABLE login(
 -- information, whereas login does, such as the email and the hashed password
 CREATE TABLE profiles(
   id INTEGER REFERENCES login(id) PRIMARY KEY,
-  user_handle CITEXT NOT NULL UNIQUE
+  user_handle CITEXT NOT NULL UNIQUE,
+  tagline TEXT DEFAULT NULL,
+  description TEXT DEFAULT NULL
 );
 
