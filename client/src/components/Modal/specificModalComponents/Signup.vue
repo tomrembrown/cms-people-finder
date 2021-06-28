@@ -109,11 +109,11 @@ export default {
   },
   methods: {
     ...mapMutations({
-      close: 'closeModal',
-      loadUser: 'loadUser',
+      close: 'modal/closeModal',
+      loadUser: 'myprofile/loadUser',
     }),
     ...mapActions({
-      successfullySignedIn: 'successfullySignedIn',
+      successfullySignedIn: 'auth/successfullySignedIn',
     }),
     clearForm() {
       this.handle = ''
@@ -172,9 +172,9 @@ export default {
                 this.isPasswordWrong = true
                 this.passwordErrorMessage = INVALID_PASSWORD_MESSAGE
               }
-              if (/invalid user_handle/.test(user)) {
-                this.isUserHandleWrong = true
-                this.userHandleErrorMessage = INVALID_HANDLE_MESSAGE
+              if (/invalid handle/.test(user)) {
+                this.isHandleWrong = true
+                this.handleErrorMessage = INVALID_HANDLE_MESSAGE
               }
             }
             if (/taken/.test(user)) {
@@ -182,9 +182,9 @@ export default {
                 this.isEmailWrong = true
                 this.emailErrorMessage = EMAIL_TAKEN_MESSAGE
               }
-              if (/user_handle/.test(user)) {
-                this.isUserHandleWrong = true
-                this.userHandleErrorMessage = HANDLE_TAKEN_MESSAGE
+              if (/handle/.test(user)) {
+                this.isHandleWrong = true
+                this.handleErrorMessage = HANDLE_TAKEN_MESSAGE
               }
             }
           }

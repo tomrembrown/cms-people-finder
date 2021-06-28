@@ -5,8 +5,8 @@ const validateId = (id) => {
   return id == parseInt(id, 10) && id > 0
 }
 
-const validateUserHandle = (user_handle) => {
-  return user_handle.length >= 3 && user_handle.length <= 25
+const validateHandle = (handle) => {
+  return handle.length >= 3 && handle.length <= 25
 }
 
 const validateEmail = (email) => {
@@ -19,7 +19,7 @@ const validatePassword = (password) => {
 
 module.exports = {
   validateId,
-  validateUserHandle,
+  validateHandle,
   validateEmail,
   validatePassword,
 }

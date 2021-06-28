@@ -3,8 +3,7 @@
 const getProfile = async function (client, id) {
   try {
     const getProfileQuery =
-      'SELECT   id, ' +
-      '         user_handle ' +
+      'SELECT   id, handle, tagline, description ' +
       'FROM profiles ' +
       'WHERE id=$1;'
     const response = await client.query(getProfileQuery, [id])

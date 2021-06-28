@@ -33,9 +33,11 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
 import Login from './specificModalComponents/Login.vue'
 import Signup from './specificModalComponents/Signup.vue'
+
+const { mapState, mapMutations } = createNamespacedHelpers('modal')
 
 export default {
   name: 'Modal',
@@ -45,9 +47,9 @@ export default {
   },
   computed: {
     ...mapState({
-      visible: 'modalVisible',
-      component: 'modalComponent',
-      title: 'modalTitle',
+      visible: 'visible',
+      component: 'component',
+      title: 'title',
     }),
     component_lower() {
       return this.component ? this.component.toLowerCase() : ''

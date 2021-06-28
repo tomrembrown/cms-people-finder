@@ -1,7 +1,7 @@
 const endpoint = process.env.VUE_APP_API_URL + '/'
 
-export const signup = (user_handle, email, password) => {
-  const data = { user_handle, email, password }
+export const signup = (handle, email, password) => {
+  const data = { handle, email, password }
   return fetch(endpoint + 'signup', {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -24,17 +24,17 @@ export const getProfile = (id) => {
   }).then((response) => response.json())
 }
 
-export const checkHandleTaken = (user_handle) => {
-  const queryString = '?user_handle=' + user_handle
+export const checkHandleTaken = (handle) => {
+  const queryString = '?handle=' + handle
   const totalURI = endpoint + 'checkHandleTaken/' + encodeURI(queryString)
   return fetch(totalURI, {
     method: 'GET',
   }).then((response) => response.json())
 }
 
-export const updateHandle = (id, user_handle) => {
-  const data = { id, user_handle }
-  return fetch(endpoint + 'updateUserHandle', {
+export const updateHandle = (id, handle) => {
+  const data = { id, handle }
+  return fetch(endpoint + 'updateHandle', {
     method: 'PATCH',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify(data),

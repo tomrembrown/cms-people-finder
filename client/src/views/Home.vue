@@ -21,7 +21,10 @@
 
 <script>
 import HomePageGraphic from '@/components/Home/HomePageGraphic.vue'
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapMutations } = createNamespacedHelpers('auth')
+const { mapActions } = createNamespacedHelpers('modal')
 
 export default {
   name: 'Home',

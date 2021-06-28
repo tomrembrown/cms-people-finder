@@ -29,10 +29,14 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Navigation',
   computed: {
-    ...mapState(['isSignedIn']),
+    ...mapState('auth', ['isSignedIn']),
   },
   methods: {
-    ...mapActions(['showLogin', 'showSignup', 'signout']),
+    ...mapActions({
+      showLogin: 'modal/showLogin',
+      showSignup: 'modal/showSignup',
+      signout: 'auth/signout',
+    }),
   },
 }
 </script>

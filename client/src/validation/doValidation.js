@@ -1,8 +1,8 @@
 import { checkHandleTaken } from '@/api/api-client'
 import {
   validateEmail,
+  validateHandle,
   validatePassword,
-  validateUserHandle,
 } from './commonValidation'
 
 export const INVALID_HANDLE_MESSAGE =
@@ -26,7 +26,7 @@ export const doValidation = async (field, value) => {
 
   switch (field) {
     case 'handle':
-      if (validateUserHandle(value)) {
+      if (validateHandle(value)) {
         const data = await checkHandleTaken(value)
         if (data.handleTaken) {
           result.errorMessage = HANDLE_TAKEN_MESSAGE

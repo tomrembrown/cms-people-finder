@@ -1,9 +1,9 @@
 'use strict'
 
-const updateHandle = async function (client, id, user_handle) {
+const updateHandle = async function (client, id, handle) {
   try {
-    await client.query('UPDATE profiles SET user_handle=$1 WHERE id=$2', [
-      user_handle,
+    await client.query('UPDATE profiles SET handle=$1 WHERE id=$2', [
+      handle,
       id,
     ])
   } catch (error) {

@@ -3,7 +3,7 @@
  * This handle the rest API endpoint: post /login. This signs users in
  * users. It receives a json object containing email and password then
  * checks if that mathces what is in the database. If it does it
- * returns the contents of the profiles table: id, user_handle,
+ * returns the contents of the profiles table: id, handle,
  */
 
 const bcrypt = require('bcrypt')

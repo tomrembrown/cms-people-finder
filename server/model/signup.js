@@ -5,7 +5,7 @@ const signup = async function (
   email,
   password_hash,
   signup_date,
-  user_handle
+  handle
 ) {
   try {
     await client.query('BEGIN TRANSACTION;')
@@ -18,15 +18,15 @@ const signup = async function (
     )
     const id = parseInt(response.rows[0].id)
 
-    await client.query(
-      'INSERT INTO profiles (id, user_handle) VALUES ($1, $2);',
-      [id, user_handle]
-    )
+    await client.query('INSERT INTO profiles (id, handle) VALUES ($1, $2);', [
+      id,
+      handle,
+    ])
 
     await client.query('COMMIT TRANSACTION;')
     const data = {
       id: id,
-      user_handle: user_handle,
+      handle: handle,
     }
     return data
   } catch (error) {

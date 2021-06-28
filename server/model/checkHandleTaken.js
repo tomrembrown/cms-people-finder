@@ -1,10 +1,10 @@
 'use strict'
 
-const checkHandleTaken = async function (client, user_handle) {
+const checkHandleTaken = async function (client, handle) {
   try {
     const response = await client.query(
-      'SELECT id FROM profiles WHERE user_handle=$1;',
-      [user_handle]
+      'SELECT id FROM profiles WHERE handle=$1;',
+      [handle]
     )
     return !(response.rowCount === 0)
   } catch (error) {

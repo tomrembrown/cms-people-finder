@@ -41,11 +41,11 @@ export default {
   },
   methods: {
     ...mapMutations({
-      close: 'closeModal',
-      loadUser: 'loadUser',
+      close: 'modal/closeModal',
+      loadUser: 'myprofile/loadUser',
     }),
     ...mapActions({
-      successfullySignedIn: 'successfullySignedIn',
+      successfullySignedIn: 'auth/successfullySignedIn',
     }),
     clearForm() {
       this.email = ''
@@ -56,7 +56,9 @@ export default {
     loginLocal() {
       if (this.canSubmit) {
         login(this.email, this.password).then((user) => {
-          if (user && user.id) {
+          console.log(user)
+          if (user && Number.isInteger(user.id)) {
+            console.log('Loading user')
             // User logged in ok
             this.loadUser(user)
             this.clearForm()
