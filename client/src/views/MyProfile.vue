@@ -9,7 +9,7 @@
       </div>
       <section class="profileHeader">
         <h2>JOHN DOE</h2>
-        <h3>REALLY AWESOME WEB DESIGNER</h3>
+        <h3>TOTALLY AWESOME MANIFESTATION OF INFINITE CONSCIOUSNESS</h3>
         <hr />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -44,18 +44,20 @@
 </template>
 
 <style lang="scss">
+@use '@/displaysettings.scss' as d;
+
 #myprofile {
   margin: 0 auto;
   width: 92%;
-  max-width: 960px;
-  padding: 1em;
+  max-width: 60rem;
+  padding: 1rem;
 
   header {
     text-align: center;
     display: grid;
-    grid-template-columns: 260px 1fr;
-    grid-template-rows: 70px 1fr 80px;
-    grid-gap: 1em;
+    grid-template-columns: 16.25rem 1fr;
+    grid-template-rows: 4.375rem 1fr 5rem;
+    grid-gap: 1rem;
 
     grid-template-areas:
       'logo   logo'
@@ -66,27 +68,27 @@
       grid-area: logo;
 
       .logoPlaceholder {
-        background-color: rgba(208, 207, 207, 1);
-        width: 187px;
+        background-color: d.$footer-header-bg-color;
+        width: 11.75rem;
         text-align: center;
 
         span {
-          width: 80px;
-          height: 22px;
-          color: rgba(255, 255, 255, 1);
-          font-size: 30px;
+          font-size: 2rem;
+          width: 5rem;
+          height: 1.375rem;
+          color: d.$font-color-1;
           font-weight: 700;
-          line-height: 53px;
+          line-height: 3.5rem;
         }
       }
     }
 
     .profilePhoto {
       grid-area: photo;
-      background-color: rgba(237, 237, 237, 1);
-      width: 259px;
+      background-color: d.$footer-header-bg-color;
+      width: 16.1875rem;
       border-radius: 50%;
-      height: 259px;
+      height: 16.1875rem;
     }
 
     .profileHeader {
@@ -94,34 +96,32 @@
       grid-area: info;
 
       h2 {
-        color: rgba(146, 146, 146, 1);
-        font-size: 30px;
+        color: d.$font-color-1;
+        font-size: 1.875rem;
         font-weight: 700;
-        line-height: 24px;
-        margin-bottom: 0.5em;
+        line-height: 1.5rem;
+        margin-bottom: 0.5rem;
       }
 
       h3 {
-        font-family: sans-serif;
-        color: rgba(146, 146, 146, 1);
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 24px;
+        font-family: 'Cabin', sans-serif;
+        color: d.$font-color-1;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
       }
 
       hr {
-        background-color: rgba(208, 207, 207, 1);
         height: 1px;
         margin-bottom: 1em;
       }
 
       p {
-        font-family: sans-serif;
-        color: rgba(146, 146, 146, 1);
-        font-size: 14px;
+        font-family: 'Cabin', sans-serif;
+        color: d.$font-color-2;
+        font-size: 0.875rem;
         font-weight: 400;
-        line-height: 1.8;
-        overflow-y: auto;
+        line-height: 1.575rem;
       }
     }
     .socialNetworkNavBar {
