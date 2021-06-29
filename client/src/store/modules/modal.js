@@ -18,14 +18,14 @@ const mutations = {
 const actions = {
   showLogin({ commit }) {
     const payload = {
-      componentName: 'Login',
+      componentName: 'LoginModal',
       componentTitle: 'Log In',
     }
     commit('showModal', payload)
   },
   showSignup({ commit }) {
     const payload = {
-      componentName: 'Signup',
+      componentName: 'SignupModal',
       componentTitle: 'Sign Up',
     }
     commit('showModal', payload)

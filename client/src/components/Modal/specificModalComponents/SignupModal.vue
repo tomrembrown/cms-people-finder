@@ -76,7 +76,7 @@ import {
 import { signup } from '@/api/api-client'
 
 export default {
-  name: 'Signup',
+  name: 'SignupModal',
   data() {
     return {
       handle: '',

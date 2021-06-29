@@ -30,7 +30,7 @@ import { mapMutations, mapActions } from 'vuex'
 import { login } from '@/api/api-client'
 
 export default {
-  name: 'Login',
+  name: 'LoginModal',
   data() {
     return {
       email: '',

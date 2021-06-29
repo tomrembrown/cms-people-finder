@@ -27,7 +27,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'Navigation',
+  name: 'MainNavigation',
   computed: {
     ...mapState('auth', ['isSignedIn']),
   },

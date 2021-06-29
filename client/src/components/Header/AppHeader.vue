@@ -1,22 +1,22 @@
 <template>
   <header id="main-site-header">
     <span id="branding">
-      <Logo />
+      <CorporateLogo />
       <h1>Ashroh People Finder</h1>
     </span>
-    <Navigation />
+    <MainNavigation />
   </header>
 </template>
 
 <script>
-import Logo from './Logo.vue'
-import Navigation from './Navigation.vue'
+import CorporateLogo from './CorporateLogo.vue'
+import MainNavigation from './MainNavigation.vue'
 
 export default {
-  name: 'Header',
+  name: 'AppHeader',
   components: {
-    Logo,
-    Navigation,
+    CorporateLogo,
+    MainNavigation,
   },
 }
 </script>

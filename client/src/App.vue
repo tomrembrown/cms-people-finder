@@ -1,20 +1,20 @@
 <template>
-  <Header />
+  <AppHeader />
   <router-view />
-  <Modal />
-  <Footer />
+  <AppModal />
+  <AppFooter />
 </template>
 
 <script>
-import Header from '@/components/Header/Header'
-import Modal from '@/components/Modal/Modal'
-import Footer from '@/components/Footer/Footer'
+import AppHeader from '@/components/Header/AppHeader'
+import AppModal from '@/components/Modal/AppModal'
+import AppFooter from '@/components/Footer/AppFooter'
 
 export default {
   components: {
-    Header,
-    Modal,
-    Footer,
+    AppHeader,
+    AppModal,
+    AppFooter,
   },
 }
 </script>

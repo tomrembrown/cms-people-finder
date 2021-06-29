@@ -34,16 +34,16 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import Login from './specificModalComponents/Login.vue'
-import Signup from './specificModalComponents/Signup.vue'
+import LoginModal from './specificModalComponents/LoginModal.vue'
+import SignupModal from './specificModalComponents/SignupModal.vue'
 
 const { mapState, mapMutations } = createNamespacedHelpers('modal')
 
 export default {
-  name: 'Modal',
+  name: 'AppModal',
   components: {
-    Login,
-    Signup,
+    LoginModal,
+    SignupModal,
   },
   computed: {
     ...mapState({
@@ -84,14 +84,14 @@ export default {
   padding-top: 2%;
   z-index: 2000;
 
-  .login_size {
+  .loginmodal_size {
     width: 95vw;
     max-width: 20rem;
     height: 90vh;
     max-height: 19rem;
   }
 
-  .signup_size {
+  .signupmodal_size {
     width: 95vw;
     max-width: 24rem;
     height: 90vh;
