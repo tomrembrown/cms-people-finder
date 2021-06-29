@@ -56,9 +56,7 @@ export default {
     loginLocal() {
       if (this.canSubmit) {
         login(this.email, this.password).then((user) => {
-          console.log(user)
           if (user && Number.isInteger(user.id)) {
-            console.log('Loading user')
             // User logged in ok
             this.loadUser(user)
             this.clearForm()

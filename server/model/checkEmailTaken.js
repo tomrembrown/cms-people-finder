@@ -6,8 +6,6 @@ const checkEmailTaken = async function (client, email) {
       'SELECT id FROM login WHERE email=$1;',
       [email]
     )
-    console.log('In checkEmailTaken')
-    console.log(response)
     return !(response.rowCount === 0)
   } catch (error) {
     console.error(`Error in checkEmailTaken: ${error.message}`)

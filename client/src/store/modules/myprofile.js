@@ -9,7 +9,6 @@ const mutations = {
   loadUser(state, user) {
     state.id = Number(user.id)
     state.handle = user.handle
-    console.log('Handle is now ' + user.handle)
     state.tagline = user.tagline
     state.description = user.description
   },

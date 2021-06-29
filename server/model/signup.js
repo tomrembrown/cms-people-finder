@@ -18,15 +18,25 @@ const signup = async function (
     )
     const id = parseInt(response.rows[0].id)
 
-    await client.query('INSERT INTO profiles (id, handle) VALUES ($1, $2);', [
-      id,
-      handle,
-    ])
+    // Get remaining fields from default user - initial default
+    const defaultFieldsResponse = await client.query(
+      'SELECT tagline, description FROM profiles WHERE id=0;'
+    )
+
+    const tagline = defaultFieldsResponse.rows[0].tagline
+    const description = defaultFieldsResponse.rows[0].description
+
+    await client.query(
+      'INSERT INTO profiles (id, handle, tagline, description) VALUES ($1, $2, $3, $4);',
+      [id, handle, tagline, description]
+    )
 
     await client.query('COMMIT TRANSACTION;')
     const data = {
       id: id,
       handle: handle,
+      tagline: tagline,
+      description: description,
     }
     return data
   } catch (error) {
