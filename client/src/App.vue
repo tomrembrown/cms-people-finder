@@ -1,20 +1,20 @@
 <template>
-  <AppHeader />
+  <TheHeader />
   <router-view />
-  <AppModal />
-  <AppFooter />
+  <BaseModal />
+  <TheFooter />
 </template>
 
 <script>
-import AppHeader from '@/components/Header/AppHeader'
-import AppModal from '@/components/Modal/AppModal'
-import AppFooter from '@/components/Footer/AppFooter'
+import TheHeader from '@/components/Header/TheHeader'
+import BaseModal from '@/components/Modal/BaseModal'
+import TheFooter from '@/components/Footer/TheFooter'
 
 export default {
   components: {
-    AppHeader,
-    AppModal,
-    AppFooter,
+    TheHeader,
+    BaseModal,
+    TheFooter,
   },
 }
 </script>
@@ -53,20 +53,7 @@ main {
   background-color: d.$background-color;
 }
 
-.error {
-  color: red;
-  font-style: italic;
-  font-size: 0.75rem;
-  text-align: left;
-}
-
-.generalerror {
-  text-align: center;
-  padding-top: 1rem;
-}
-
-.button > a,
-.button > button {
+.button {
   text-decoration: none;
   display: block;
   border: 1.5px solid #555;

@@ -7,8 +7,8 @@ const state = () => ({
 const mutations = {
   showModal(state, payload) {
     state.visible = true
-    state.component = payload.componentName
-    state.title = payload.componentTitle
+    state.component = payload.component
+    state.title = payload.title
   },
   closeModal(state) {
     state.visible = false
@@ -18,15 +18,15 @@ const mutations = {
 const actions = {
   showLogin({ commit }) {
     const payload = {
-      componentName: 'LoginModal',
-      componentTitle: 'Log In',
+      component: 'Login',
+      title: 'Log In',
     }
     commit('showModal', payload)
   },
   showSignup({ commit }) {
     const payload = {
-      componentName: 'SignupModal',
-      componentTitle: 'Sign Up',
+      component: 'Signup',
+      title: 'Sign Up',
     }
     commit('showModal', payload)
   },

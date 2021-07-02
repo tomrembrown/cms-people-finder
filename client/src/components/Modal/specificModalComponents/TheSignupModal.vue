@@ -1,64 +1,72 @@
 <template>
-  <section class="modal-main" id="modal-description">
-    <div class="handle-holder">
-      <label for="handle"
+  <section class="modal__main" id="modal__main">
+    <div>
+      <label class="modal__field__label" for="handle"
         >Handle
-        <span class="modal-label-description"
+        <span class="modal__field__label__description"
           >(will be shown in search results)</span
         ></label
       >
       <input
+        class="modal__field__input"
         type="text"
         id="handle"
         v-model="handle"
         @keyup="validate('handle')"
       />
-      <div class="error" v-if="isHandleWrong">{{ handleErrorMessage }}</div>
+      <div class="modal__error" v-if="isHandleWrong">
+        {{ handleErrorMessage }}
+      </div>
     </div>
-    <div class="email-holder subsequent-row">
-      <label for="email">Email</label>
+    <div class="modal__field--subsequentrow">
+      <label class="modal__field__label" for="email">Email</label>
       <input
+        class="modal__field__input"
         type="email"
         id="email"
         v-model="email"
         @keyup="validate('email')"
       />
-      <div class="error" v-if="isEmailWrong">{{ emailErrorMessage }}</div>
+      <div class="modal__error" v-if="isEmailWrong">
+        {{ emailErrorMessage }}
+      </div>
     </div>
-    <div class="password-holder subsequent-row">
-      <label for="password">Password</label>
+    <div class="modal__field--subsequentrow">
+      <label class="modal__field__label" for="password">Password</label>
       <input
+        class="modal__field__input"
         type="password"
         id="password"
         v-model="password"
         @keyup="validate('password')"
       />
-      <div class="error" v-if="isPasswordWrong">
+      <div class="modal__error" v-if="isPasswordWrong">
         {{ passwordErrorMessage }}
       </div>
     </div>
-    <div class="verify_password-holder subsequent-row">
-      <label for="verify_password">Verify Password</label>
+    <div class="modal__field--subsequentrow">
+      <label class="modal__field__label" for="verify_password"
+        >Verify Password</label
+      >
       <input
+        class="modal__field__input"
         type="password"
         id="verify_password"
         v-model="verify_password"
         @keyup="validate('verify_password')"
       />
-      <div class="error" v-if="isVerifyPasswordWrong">
+      <div class="modal__error" v-if="isVerifyPasswordWrong">
         {{ verifyPasswordErrorMessage }}
       </div>
     </div>
   </section>
-  <footer class="button">
-    <button
-      @click="signupLocal"
-      :class="canSubmit ? '' : 'disabled'"
-      :disabled="!canSubmit"
-    >
+  <footer class="modal__footer">
+    <button @click="signupLocal" class="button" :disabled="!canSubmit">
       Sign Up
     </button>
-    <button @click="close" aria-label="Close modal">Cancel</button>
+    <button @click="close" class="button" aria-label="Close modal">
+      Cancel
+    </button>
   </footer>
 </template>
 
@@ -76,7 +84,7 @@ import {
 import { signup } from '@/api/api-client'
 
 export default {
-  name: 'SignupModal',
+  name: 'TheSignupModal',
   data() {
     return {
       handle: '',

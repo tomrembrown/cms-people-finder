@@ -1,26 +1,34 @@
 <template>
-  <section class="modal-main" id="modal-description">
-    <div class="email-holder">
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email" />
+  <section class="modal__main" id="modal__main">
+    <div>
+      <label class="modal__field__label" for="email">Email</label>
+      <input
+        class="modal__field__input"
+        type="email"
+        id="email"
+        v-model="email"
+      />
     </div>
-    <div class="password-holder subsequent-row">
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password" />
+    <div class="modal__field__subsequentrow">
+      <label class="modal__field__label" for="password">Password</label>
+      <input
+        class="modal__field__input"
+        type="password"
+        id="password"
+        v-model="password"
+      />
     </div>
-    <div class="error generalerror" v-if="isGeneralError">
+    <div class="modal__error modal__error--general" v-if="isGeneralError">
       {{ generalErrorMessage }}
     </div>
   </section>
-  <footer class="button">
-    <button
-      @click="loginLocal"
-      :class="canSubmit ? '' : 'disabled'"
-      :disabled="!canSubmit"
-    >
+  <footer class="modal__footer">
+    <button @click="loginLocal" class="button" :disabled="!canSubmit">
       Log In
     </button>
-    <button @click="close" aria-label="Close modal">Cancel</button>
+    <button @click="close" class="button" aria-label="Close modal">
+      Cancel
+    </button>
   </footer>
 </template>
 
@@ -30,7 +38,7 @@ import { mapMutations, mapActions } from 'vuex'
 import { login } from '@/api/api-client'
 
 export default {
-  name: 'LoginModal',
+  name: 'TheLoginModal',
   data() {
     return {
       email: '',
@@ -38,6 +46,11 @@ export default {
       isGeneralError: false,
       generalErrorMessage: '',
     }
+  },
+  computed: {
+    canSubmit() {
+      return this.email.length > 0 && this.password.length > 0
+    },
   },
   methods: {
     ...mapMutations({
@@ -68,11 +81,6 @@ export default {
           }
         })
       }
-    },
-  },
-  computed: {
-    canSubmit() {
-      return this.email.length > 0 && this.password.length > 0
     },
   },
 }

@@ -1,16 +1,20 @@
 <template>
-  <main id="home">
-    <div id="home__inner">
+  <main class="homepage">
+    <div class="homepage__inner">
       <HomePageGraphic />
-      <div id="home__buttons" class="button">
-        <button @click="showLogin" v-if="!isSignedIn">Log In</button>
-        <button @click="showSignup" v-if="!isSignedIn">Sign Up</button>
-        <router-link to="/browse">Find People</router-link>
-        <router-link to="/about">About Us</router-link>
+      <div class="homepage__buttons">
+        <button class="button" @click="showLogin" v-if="!isSignedIn">
+          Log In
+        </button>
+        <button class="button" @click="showSignup" v-if="!isSignedIn">
+          Sign Up
+        </button>
+        <router-link class="button" to="/browse">Find People</router-link>
+        <router-link class="button" to="/about">About Us</router-link>
         <button
           @click="signout"
           v-if="isSignedIn"
-          class="home__buttons__center"
+          class="button homepage__buttons--center"
         >
           Sign Out
         </button>
@@ -27,7 +31,7 @@ const { mapState, mapMutations } = createNamespacedHelpers('auth')
 const { mapActions } = createNamespacedHelpers('modal')
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
     HomePageGraphic,
   },
@@ -42,30 +46,30 @@ export default {
 </script>
 
 <style lang="scss">
-#home {
+.homepage {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   text-align: center;
+}
 
-  #home__inner {
-    display: inline-block;
+.homepage__inner {
+  display: inline-block;
+}
 
-    #home__buttons {
-      display: grid;
+.homepage__buttons {
+  display: grid;
 
-      grid-template-columns: repeat(2, 1fr);
-      justify-content: center;
-      justify-items: center;
-      padding-bottom: 1em;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  justify-items: center;
+  padding-bottom: 1em;
+}
 
-      .home__buttons__center {
-        justify-self: center;
-        grid-column: 1 / -1;
-      }
-    }
-  }
+.homepage__buttons--center {
+  justify-self: center;
+  grid-column: 1 / -1;
 }
 </style>

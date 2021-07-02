@@ -29,11 +29,9 @@
 
 <script>
 export default {
-  name: 'AshrohSVGLogo',
+  name: 'LogoCorporate',
   props: {
     size: { type: [Number, String], default: 25 },
   },
 }
 </script>
-
-<style lang="scss"></style>
