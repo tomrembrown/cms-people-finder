@@ -1,5 +1,6 @@
 <template>
   <main class="myprofilepage">
+    <MyProfilePageEditButton />
     <header class="myprofilepage__header">
       <div class="myprofilepage__logoholder">
         <p class="myprofilepage__logoplaceholder">
@@ -42,9 +43,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
 
 export default {
   name: 'MyProfilePage',
+  components: {
+    MyProfilePageEditButton,
+  },
   computed: {
     ...mapState('myprofile', ['handle', 'tagline', 'description']),
   },
@@ -59,6 +64,7 @@ export default {
   width: 92%;
   max-width: 60rem;
   padding: 1rem;
+  position: relative;
 }
 
 .myprofilepage__header {

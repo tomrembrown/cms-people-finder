@@ -11,6 +11,7 @@ import BaseModal from '@/components/Modal/BaseModal'
 import TheFooter from '@/components/Footer/TheFooter'
 
 export default {
+  name: 'App',
   components: {
     TheHeader,
     BaseModal,
