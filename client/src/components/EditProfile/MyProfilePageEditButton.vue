@@ -1,16 +1,35 @@
 <template>
-  <div class="myprofilepage__editbutton">
+  <div class="myprofilepage__editbutton" @click="switch_editable">
     <font-awesome-icon
+      v-if="!editMode"
       class="myprofilepage__editbutton__icon"
       icon="pencil-alt"
     />
-    <p class="myprofilepage__editbutton__text">Edit Page</p>
+    <p class="myprofilepage__editbutton__text">{{ button_text }}</p>
   </div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
+
 export default {
   name: 'MyProfilePageEditButton',
+  computed: {
+    ...mapState({
+      editMode: 'editMode',
+    }),
+    button_text() {
+      console.log(this.editMode)
+      return this.editMode ? 'View & Save' : 'Edit Page'
+    },
+  },
+  methods: {
+    ...mapMutations(['setEditMode']),
+    switch_editable() {
+      this.setEditMode(!this.editMode)
+    },
+  },
 }
 </script>
 
@@ -23,7 +42,7 @@ export default {
   background-color: black;
   padding: 0.3rem;
   display: flex;
-  width: 6.5em;
+  width: 7em;
   position: absolute;
   top: 0px;
   right: 0px;

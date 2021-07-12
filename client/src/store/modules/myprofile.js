@@ -3,6 +3,7 @@ const state = () => ({
   handle: null,
   tagline: null,
   description: null,
+  editMode: false,
 })
 
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
     state.handle = user.handle
     state.tagline = user.tagline
     state.description = user.description
+  },
+  setEditMode(state, newMode) {
+    state.editMode = newMode
   },
 }
 

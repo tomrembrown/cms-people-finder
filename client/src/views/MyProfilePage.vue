@@ -11,10 +11,32 @@
         <img src="@/assets/profilephoto.png" alt="Profile Picture" />
       </div>
       <section class="myprofilepage__info">
-        <h2 class="myprofilepage__handle">{{ handle }}</h2>
-        <h3 class="myprofilepage__tagline">{{ tagline }}</h3>
+        <h2
+          :class="[
+            editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
+            'myprofilepage__handle ',
+          ]"
+          :contenteditable="editMode"
+        >
+          {{ handle }}
+        </h2>
+        <h3
+          :class="[
+            editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
+            'myprofilepage__tagline',
+          ]"
+          :contenteditable="editMode"
+        >
+          {{ tagline }}
+        </h3>
         <hr class="myprofilepage__break" />
-        <p class="myprofilepage__description">
+        <p
+          :class="[
+            editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
+            'myprofilepage__description',
+          ]"
+          :contenteditable="editMode"
+        >
           {{ description }}
         </p>
       </section>
@@ -51,7 +73,7 @@ export default {
     MyProfilePageEditButton,
   },
   computed: {
-    ...mapState('myprofile', ['handle', 'tagline', 'description']),
+    ...mapState('myprofile', ['handle', 'tagline', 'description', 'editMode']),
   },
 }
 </script>
@@ -110,6 +132,14 @@ export default {
 .myprofilepage__info {
   grid-area: info;
   text-align: left;
+}
+
+.myprofilepage--editable {
+  cursor: text;
+}
+
+.myprofilepage--viewonly {
+  cursor: default;
 }
 
 .myprofilepage__handle {
