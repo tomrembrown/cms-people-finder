@@ -11,7 +11,8 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
+const { mapState, mapMutations, mapActions } =
+  createNamespacedHelpers('myprofile')
 
 export default {
   name: 'MyProfilePageEditButton',
@@ -20,13 +21,16 @@ export default {
       editMode: 'editMode',
     }),
     button_text() {
-      console.log(this.editMode)
       return this.editMode ? 'View & Save' : 'Edit Page'
     },
   },
   methods: {
     ...mapMutations(['setEditMode']),
+    ...mapActions(['updateProfileStore']),
     switch_editable() {
+      if (this.editMode) {
+        this.updateProfileStore()
+      }
       this.setEditMode(!this.editMode)
     },
   },

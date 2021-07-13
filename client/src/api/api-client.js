@@ -41,6 +41,17 @@ export const updateHandle = (id, handle) => {
   }).then((response) => response.json())
 }
 
+export const updateProfile = (id, handle, tagline, description) => {
+  const data = { id, handle, tagline, description }
+  return fetch(endpoint + 'updateProfile', {
+    method: 'PATCH',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    return response.json()
+  })
+}
+
 export const deleteProfile = (id) => {
   return fetch(endpoint + 'profile/' + id, {
     method: 'DELETE',

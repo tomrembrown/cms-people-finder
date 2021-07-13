@@ -17,6 +17,7 @@
             'myprofilepage__handle ',
           ]"
           :contenteditable="editMode"
+          @input="changeFieldLocal('handle', $event)"
         >
           {{ handle }}
         </h2>
@@ -26,6 +27,7 @@
             'myprofilepage__tagline',
           ]"
           :contenteditable="editMode"
+          @input="changeFieldLocal('tagline', $event)"
         >
           {{ tagline }}
         </h3>
@@ -36,6 +38,7 @@
             'myprofilepage__description',
           ]"
           :contenteditable="editMode"
+          @input="changeFieldLocal('description', $event)"
         >
           {{ description }}
         </p>
@@ -64,8 +67,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
 import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
+
+const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
 
 export default {
   name: 'MyProfilePage',
@@ -73,7 +78,17 @@ export default {
     MyProfilePageEditButton,
   },
   computed: {
-    ...mapState('myprofile', ['handle', 'tagline', 'description', 'editMode']),
+    ...mapState(['handle', 'tagline', 'description', 'editMode']),
+  },
+  methods: {
+    ...mapMutations(['changeField']),
+    changeFieldLocal(field, event) {
+      const payload = {
+        field: field,
+        value: event.target.innerText,
+      }
+      this.changeField(payload)
+    },
   },
 }
 </script>
