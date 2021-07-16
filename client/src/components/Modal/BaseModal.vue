@@ -33,6 +33,7 @@
 import { createNamespacedHelpers } from 'vuex'
 import TheLoginModal from './specificModalComponents/TheLoginModal.vue'
 import TheSignupModal from './specificModalComponents/TheSignupModal.vue'
+import TheStatusModal from './specificModalComponents/TheStatusModal.vue'
 
 const { mapState, mapMutations } = createNamespacedHelpers('modal')
 
@@ -41,6 +42,7 @@ export default {
   components: {
     TheLoginModal,
     TheSignupModal,
+    TheStatusModal,
   },
   computed: {
     ...mapState({
@@ -99,7 +101,7 @@ export default {
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 3em auto 4em;
+  grid-template-rows: 3em auto 3.5em;
   grid-template-areas:
     'modal__header'
     'modal__main'
@@ -118,6 +120,13 @@ export default {
   max-width: 24rem;
   height: 90vh;
   max-height: 29rem;
+}
+
+.modal__content--status {
+  width: 95vw;
+  max-width: 21rem;
+  height: 90vh;
+  max-height: 14rem;
 }
 
 .modal__header {

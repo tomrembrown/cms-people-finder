@@ -24,7 +24,7 @@ const mutations = {
 }
 
 const actions = {
-  updateProfileStore({ state }) {
+  updateProfileStore({ dispatch, state }) {
     if (state.id !== null) {
       updateProfile(
         state.id,
@@ -33,8 +33,18 @@ const actions = {
         state.description
       ).then((data) => {
         if (data === 'success') {
+          dispatch('modal/showSuccess', 'Successfully updated database', {
+            root: true,
+          })
           console.log('Successfully updated database')
         } else {
+          dispatch(
+            'modal/showFailure',
+            'Did not successfully update database',
+            {
+              root: true,
+            }
+          )
           console.log('Did not successfully update database')
         }
       })
