@@ -12,6 +12,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "base64-img": "^1.0.4",
     "bcrypt": "^5.0.1",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",

@@ -8,7 +8,30 @@
         </p>
       </div>
       <div class="myprofilepage__photo">
-        <img src="@/assets/profilephoto.png" alt="Profile Picture" />
+        <img
+          src="@/assets/profilephoto.png"
+          alt="Profile Picture"
+          ref="profilePicture"
+        />
+        <input
+          style="display: none"
+          type="file"
+          ref="fileInput"
+          @change="onFileChange($event.target.files)"
+        />
+        <button
+          v-if="editMode"
+          class="myprofilepage__photo__uploadbutton"
+          @click="openFileInput"
+        >
+          <font-awesome-icon
+            class="myprofilepage__photo__uploadbutton__icon"
+            icon="portrait"
+          />
+          <p class="myprofilepage__photo__uploadbutton__text">
+            Upload New Profile Picture
+          </p>
+        </button>
       </div>
       <section class="myprofilepage__info">
         <h2
@@ -71,6 +94,7 @@ import { createNamespacedHelpers } from 'vuex'
 import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
 
 const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
+const { mapActions } = createNamespacedHelpers('modal')
 
 export default {
   name: 'MyProfilePage',
@@ -82,12 +106,57 @@ export default {
   },
   methods: {
     ...mapMutations(['changeField']),
+    ...mapActions(['showFailure']),
     changeFieldLocal(field, event) {
       const payload = {
         field: field,
         value: event.target.innerText,
       }
       this.changeField(payload)
+    },
+    openFileInput() {
+      this.$refs.fileInput.value = null
+      this.$refs.fileInput.click()
+    },
+    onFileChange(files) {
+      if (files.length > 0) {
+        let imageFile = files[0]
+
+        if (!imageFile.type.match('image.*')) {
+          this.showFailure('Please choose an image file')
+        } else if (imageFile.size > 256 * 1024) {
+          this.showFailure('Please select an image under 250 KB')
+        } else {
+          // Code to turn image to base64 string comes from https://stackoverflow.com/questions/6150289/how-can-i-convert-an-image-into-base64-string-using-javascript
+          // Get around CORS restrictions
+          this.$refs.profilePicture.crossOrigin = 'Anonymous'
+
+          // Once the picture has loaded
+          this.$refs.profilePicture.onload = () => {
+            // Create a canvas, put image on it, and extract base64String from canvas
+            let canvas = document.createElement('CANVAS')
+            let ctx = canvas.getContext('2d')
+
+            canvas.height = this.$refs.profilePicture.naturalHeight
+            canvas.width = this.$refs.profilePicture.naturalWidth
+            ctx.drawImage(this.$refs.profilePicture, 0, 0)
+
+            // This is a base 64 string that is saved in the store under the field image_link
+            // This field name is the same as that in the database. On the server side process_image
+            // saves the file in a directory and saves the link to the file on the server in the
+            // DB field image_link
+            const payload = {
+              field: 'image_link',
+              value: canvas.toDataURL(imageFile.type),
+            }
+            this.changeField(payload)
+
+            // Revoke object URL now picture has loaded
+            URL.revokeObjectURL(this.$refs.profilePicture.src)
+          }
+          this.$refs.profilePicture.src = URL.createObjectURL(imageFile)
+        }
+      }
     },
   },
 }
@@ -138,10 +207,27 @@ export default {
 
 .myprofilepage__photo {
   grid-area: photo;
-  background-color: d.$footer-header-bg-color;
   width: 16.1875rem;
-  border-radius: 50%;
   height: 16.1875rem;
+}
+
+.myprofilepage__photo > img {
+  width: 16rem;
+}
+
+.myprofilepage__photo__uploadbutton {
+  margin-top: 0.7rem;
+  margin-left: 0.7rem;
+  border: none;
+  color: white;
+  background-color: black;
+  padding: 0.3rem;
+  display: flex;
+  cursor: pointer;
+}
+
+.myprofilepage__photo__uploadbutton__text {
+  margin-left: 0.3rem;
 }
 
 .myprofilepage__info {

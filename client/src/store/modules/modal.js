@@ -45,7 +45,7 @@ const actions = {
   showFailure({ commit }, message) {
     const payload = {
       component: 'Status',
-      title: 'Failed!',
+      title: 'Error',
       message: message,
     }
     commit('showModal', payload)

@@ -44,6 +44,9 @@ jspm_packages/
 # TypeScript v1 declaration files
 typings/
 
+# Data files on server - things stored to server - like profile pics
+server/data/
+
 # TypeScript cache
 *.tsbuildinfo
 

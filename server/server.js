@@ -16,7 +16,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const express = require('express')
+const path = require('path')
 const cors = require('cors')
+
+// Save global application root for later
+global.appRoot = path.resolve(__dirname)
 
 // Require the routes for the REST API
 const authRoutes = require('./routes/auth')

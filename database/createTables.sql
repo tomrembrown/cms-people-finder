@@ -25,7 +25,8 @@ CREATE TABLE profiles(
   id INTEGER REFERENCES login(id) PRIMARY KEY,
   handle CITEXT NOT NULL UNIQUE,
   tagline TEXT DEFAULT NULL,
-  description TEXT DEFAULT NULL
+  description TEXT DEFAULT NULL,
+  image_link TEXT DEFAULT NULL
 );
 
 -- Create a default user in the profiles table. This is used as defaults for

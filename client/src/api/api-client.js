@@ -41,8 +41,8 @@ export const updateHandle = (id, handle) => {
   }).then((response) => response.json())
 }
 
-export const updateProfile = (id, handle, tagline, description) => {
-  const data = { id, handle, tagline, description }
+export const updateProfile = (id, fieldsToChange) => {
+  const data = { id, fieldsToChange }
   return fetch(endpoint + 'updateProfile', {
     method: 'PATCH',
     headers: { 'Content-type': 'application/json' },

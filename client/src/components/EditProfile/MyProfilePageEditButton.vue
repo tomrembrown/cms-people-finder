@@ -1,12 +1,12 @@
 <template>
-  <div class="myprofilepage__editbutton" @click="switch_editable">
+  <button class="myprofilepage__editbutton" @click="switch_editable">
     <font-awesome-icon
       v-if="!editMode"
       class="myprofilepage__editbutton__icon"
       icon="pencil-alt"
     />
     <p class="myprofilepage__editbutton__text">{{ button_text }}</p>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -39,6 +39,7 @@ export default {
 
 <style lang="scss">
 .myprofilepage__editbutton {
+  border: none;
   position: relative;
   top: 0;
   right: 0;
