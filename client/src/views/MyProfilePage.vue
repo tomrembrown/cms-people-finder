@@ -2,11 +2,6 @@
   <main class="myprofilepage">
     <MyProfilePageEditButton />
     <header class="myprofilepage__header">
-      <div class="myprofilepage__logoholder">
-        <p class="myprofilepage__logoplaceholder">
-          <span class="myprofilepage__logo">LOGO</span>
-        </p>
-      </div>
       <div class="myprofilepage__photo">
         <img
           src="@/assets/profilephoto.png"
@@ -66,25 +61,6 @@
           {{ description }}
         </p>
       </section>
-      <!-- Links to Social network accounts -->
-      <aside class="myprofilepage__socialnetwork">
-        <div class="myprofilepage__socialnetworkicon">
-          <!-- Add a Anchor tag with nested img tag here -->
-          <img src="@/assets/social.png" alt="sample" />
-        </div>
-        <div class="myprofilepage__socialnetworkicon">
-          <!-- Add a Anchor tag with nested img tag here -->
-          <img src="@/assets/social.png" alt="sample" />
-        </div>
-        <div class="myprofilepage__socialnetworkicon">
-          <!-- Add a Anchor tag with nested img tag here -->
-          <img src="@/assets/social.png" alt="sample" />
-        </div>
-        <div class="myprofilepage__socialnetworkicon">
-          <!-- Add a Anchor tag with nested img tag here -->
-          <img src="@/assets/social.png" alt="sample" />
-        </div>
-      </aside>
     </header>
   </main>
 </template>
@@ -206,25 +182,6 @@ export default {
     'photo  media';
 }
 
-.myprofilepage__logoholder {
-  grid-area: logo;
-}
-
-.myprofilepage__logoplaceholder {
-  background-color: d.$footer-header-bg-color;
-  width: 11.75rem;
-  text-align: center;
-}
-
-.myprofilepage__logo {
-  font-size: 2rem;
-  width: 5rem;
-  height: 1.375rem;
-  color: d.$font-color-1;
-  font-weight: 700;
-  line-height: 3.5rem;
-}
-
 .myprofilepage__photo {
   grid-area: photo;
   width: 16.1875rem;
@@ -291,21 +248,5 @@ export default {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.575rem;
-}
-
-.myprofilepage__socialnetwork {
-  grid-area: media;
-  text-align: left;
-}
-
-.myprofilepage__socialnetworkicon {
-  border-radius: 50%;
-  cursor: pointer;
-  display: inline;
-  padding: 1em;
-
-  img:hover {
-    opacity: 0.5;
-  }
 }
 </style>
