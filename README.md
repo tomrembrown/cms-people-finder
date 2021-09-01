@@ -1,4 +1,4 @@
-# agapeconnectioncorporate
+# Ashroh People Finder
 
 People can sign up or login. After this they are brought to a personal webpage which they can configure. Here they can list interests and other details - which they can then search for other
 people based on similar interests.
