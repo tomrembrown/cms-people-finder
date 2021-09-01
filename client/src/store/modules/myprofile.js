@@ -5,7 +5,7 @@ const state = () => ({
   handle: null,
   tagline: null,
   description: null,
-  image_link: '',
+  image_filename: '',
   fieldsChanged: [],
   editMode: false,
 })
@@ -16,7 +16,7 @@ const mutations = {
     state.handle = user.handle
     state.tagline = user.tagline
     state.description = user.description
-    state.image_link = user.image_link
+    state.image_filename = user.image_filename
     state.fieldsChanged = []
   },
   setEditMode(state, newMode) {
@@ -44,7 +44,6 @@ const actions = {
           dispatch('modal/showSuccess', 'Successfully updated database', {
             root: true,
           })
-          console.log('Successfully updated database')
           // Set fields changed back to none - since all fields were changed
           commit('resetFieldsChanged')
         } else {
@@ -55,7 +54,6 @@ const actions = {
               root: true,
             }
           )
-          console.log('Did not successfully update database')
         }
       })
     }

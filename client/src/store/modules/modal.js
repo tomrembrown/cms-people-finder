@@ -7,8 +7,6 @@ const state = () => ({
 
 const mutations = {
   showModal(state, payload) {
-    console.log('In showModal, payload: ')
-    console.log(payload)
     state.visible = true
     state.component = payload.component
     state.title = payload.title

@@ -22,13 +22,14 @@ const processImage = async function (id, fieldsToChange) {
     const filename = 'user' + pad(id, 6)
 
     const filePath = await base64ToFilePromise(
-      fieldsToChange.image_link,
+      fieldsToChange.image_filename,
       folderPath,
       filename
     )
 
-    // Replace what is saved in database with just link to image when loaded in browser
-    fieldsToChange.image_link = filePath
+    // Replace what is saved in database with just filename with extension when loaded in browser
+    const fullFileName = filePath.replace(/^.*[\\\/]/, '')
+    fieldsToChange.image_filename = fullFileName
   } catch (error) {
     console.log(`Error in utils/processImage: ${error.message}`)
     throw new Error(`Error in utils/processImage: ${error.message}`)

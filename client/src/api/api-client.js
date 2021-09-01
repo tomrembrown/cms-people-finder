@@ -24,6 +24,12 @@ export const getProfile = (id) => {
   }).then((response) => response.json())
 }
 
+export const getProfileImage = (image_filename) => {
+  return fetch(endpoint + 'profileImage?image_filename=' + image_filename, {
+    method: 'GET',
+  }).then((response) => response.blob())
+}
+
 export const checkHandleTaken = (handle) => {
   const queryString = '?handle=' + handle
   const totalURI = endpoint + 'checkHandleTaken/' + encodeURI(queryString)

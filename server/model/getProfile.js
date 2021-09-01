@@ -3,7 +3,7 @@
 const getProfile = async function (client, id) {
   try {
     const getProfileQuery =
-      'SELECT   id, handle, tagline, description ' +
+      'SELECT   id, handle, tagline, description, image_filename ' +
       'FROM profiles ' +
       'WHERE id=$1;'
     const response = await client.query(getProfileQuery, [id])

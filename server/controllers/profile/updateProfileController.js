@@ -31,7 +31,7 @@ const updateProfileController = asyncMiddleware(async (req, res) => {
 
   // If there is an image being sent - then convert image to file, save it,
   // and change the value in the form data to the location of the image
-  if ('image_link' in fieldsToChange) {
+  if ('image_filename' in fieldsToChange) {
     fieldsToChange = await processImage(id, fieldsToChange)
   }
 

@@ -40,7 +40,7 @@
             'myprofilepage__handle ',
           ]"
           :contenteditable="editMode"
-          @input="changeFieldLocal('handle', $event)"
+          @blur="changeFieldLocal('handle', $event)"
         >
           {{ handle }}
         </h2>
@@ -50,7 +50,7 @@
             'myprofilepage__tagline',
           ]"
           :contenteditable="editMode"
-          @input="changeFieldLocal('tagline', $event)"
+          @blur="changeFieldLocal('tagline', $event)"
         >
           {{ tagline }}
         </h3>
@@ -61,7 +61,7 @@
             'myprofilepage__description',
           ]"
           :contenteditable="editMode"
-          @input="changeFieldLocal('description', $event)"
+          @blur="changeFieldLocal('description', $event)"
         >
           {{ description }}
         </p>
@@ -92,6 +92,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
+import { getProfileImage } from '../api/api-client'
 
 const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
 const { mapActions } = createNamespacedHelpers('modal')
@@ -102,7 +103,13 @@ export default {
     MyProfilePageEditButton,
   },
   computed: {
-    ...mapState(['handle', 'tagline', 'description', 'editMode']),
+    ...mapState([
+      'handle',
+      'tagline',
+      'description',
+      'editMode',
+      'image_filename',
+    ]),
   },
   methods: {
     ...mapMutations(['changeField']),
@@ -141,12 +148,12 @@ export default {
             canvas.width = this.$refs.profilePicture.naturalWidth
             ctx.drawImage(this.$refs.profilePicture, 0, 0)
 
-            // This is a base 64 string that is saved in the store under the field image_link
+            // This is a base 64 string that is saved in the store under the field image_filename
             // This field name is the same as that in the database. On the server side process_image
             // saves the file in a directory and saves the link to the file on the server in the
-            // DB field image_link
+            // DB field image_filename
             const payload = {
-              field: 'image_link',
+              field: 'image_filename',
               value: canvas.toDataURL(imageFile.type),
             }
             this.changeField(payload)
@@ -158,6 +165,19 @@ export default {
         }
       }
     },
+  },
+  mounted() {
+    // Everything loaded - but image - use image filename to get from api
+    if (this.image_filename) {
+      getProfileImage(this.image_filename).then((image) => {
+        if (image) {
+          this.$refs.profilePicture.onload = () => {
+            URL.revokeObjectURL(this.$refs.profilePicture.src)
+          }
+          this.$refs.profilePicture.src = URL.createObjectURL(image)
+        }
+      })
+    }
   },
 }
 </script>

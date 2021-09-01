@@ -29,7 +29,12 @@ const profileRoutes = require('./routes/profile')
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+app.use(
+  express.json({
+    limit: '2mb',
+    type: 'application/json',
+  })
+)
 app.use(cors())
 
 // For security reasons, don't send info on server to client
