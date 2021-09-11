@@ -42,18 +42,18 @@
         <h3
           :class="[
             editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
-            'myprofilepage__tagline',
+            'myprofilepage__subheading',
           ]"
           :contenteditable="editMode"
           @blur="changeFieldLocal('tagline', $event)"
         >
           {{ tagline }}
         </h3>
-        <hr class="myprofilepage__break" />
+        <hr class="myprofilepage__header__break" />
         <p
           :class="[
             editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
-            'myprofilepage__description',
+            'myprofilepage__header__text',
           ]"
           :contenteditable="editMode"
           @blur="changeFieldLocal('description', $event)"
@@ -62,6 +62,45 @@
         </p>
       </section>
     </header>
+    <section class="myprofilepage__maincontent">
+      <section class="myprofilepage__aboutme">
+        <h3 class="myprofilepage__subheading">About Me &amp; My Story</h3>
+        <hr class="myprofilepage__maincontent__break" />
+        <p class="myprofilepage__maincontent__text">
+          I lived with my Cat Mommy and Cat Daddy and my four siblings. Then I
+          moved and I was lonely. After a while my brother came to live with my
+          and I was happier.
+        </p>
+      </section>
+      <section class="myprofilepage__interests">
+        <h3 class="myprofilepage__subheading">Interests</h3>
+        <hr class="myprofilepage__maincontent__break" />
+        <ul class="myprofilepage__maincontent__list">
+          <li>Ear nibbling</li>
+          <li>Destroying furniture</li>
+          <li>Hiding in boxes</li>
+        </ul>
+      </section>
+      <section class="myprofilepage__skills">
+        <h3 class="myprofilepage__subheading">Skills</h3>
+        <hr class="myprofilepage__maincontent__break" />
+        <ul class="myprofilepage__maincontent__list">
+          <li>Manipulating humans with cuteness</li>
+        </ul>
+      </section>
+      <section class="myprofilepage__projects">
+        <h3 class="myprofilepage__subheading">
+          Projects &amp; Passions Would Like to Collaborate with Others On
+        </h3>
+        <hr class="myprofilepage__maincontent__break" />
+        <p class="myprofilepage__maincontent__text">Conquering all humanity</p>
+      </section>
+      <section class="myprofilepage__location">
+        <h3 class="myprofilepage__subheading">Location</h3>
+        <hr class="myprofilepage__maincontent__break" />
+        <p class="myprofilepage__maincontent__text">Toronto, Canada</p>
+      </section>
+    </section>
   </main>
 </template>
 
@@ -165,7 +204,7 @@ export default {
   margin: 0 auto;
   width: 92%;
   max-width: 60rem;
-  padding: 1rem;
+  padding: 2.5rem;
   position: relative;
 }
 
@@ -173,28 +212,30 @@ export default {
   text-align: center;
   display: grid;
   grid-template-columns: 16.25rem 1fr;
-  grid-template-rows: 4.375rem 1fr 5rem;
+  grid-template-rows: 19.5rem;
   grid-gap: 1rem;
 
-  grid-template-areas:
-    'logo   logo'
-    'photo  info'
-    'photo  media';
+  grid-template-areas: 'photo  info';
 }
 
 .myprofilepage__photo {
   grid-area: photo;
-  width: 16.1875rem;
+  width: 16rem;
   height: 16.1875rem;
+  text-align: left;
+  padding: 0;
+  margin: 0;
 }
 
 .myprofilepage__photo > img {
-  width: 16rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .myprofilepage__photo__uploadbutton {
   margin-top: 0.7rem;
-  margin-left: 0.7rem;
+  margin-left: 0rem;
   border: none;
   color: white;
   background-color: black;
@@ -222,14 +263,13 @@ export default {
 
 .myprofilepage__handle {
   text-transform: uppercase;
-  color: d.$font-color-1;
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.5rem;
   margin-bottom: 0.75rem;
 }
 
-.myprofilepage__tagline {
+.myprofilepage__subheading {
   font-family: 'Cabin', sans-serif;
   color: d.$font-color-1;
   font-size: 1rem;
@@ -237,16 +277,39 @@ export default {
   line-height: 1.5rem;
 }
 
-.myprofilepage__break {
+.myprofilepage__header__break {
   height: 1px;
   margin-bottom: 1em;
 }
 
-.myprofilepage__description {
+.myprofilepage__maincontent__break {
+  height: 1px;
+}
+
+.myprofilepage__header__text {
   font-family: 'Cabin', sans-serif;
   color: d.$font-color-2;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.575rem;
+}
+
+.myprofilepage__maincontent__text {
+  font-family: 'Cabin', sans-serif;
+  color: d.$font-color-2;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+}
+
+.myprofilepage__maincontent__list {
+  font-family: 'Cabin', sans-serif;
+  color: d.$font-color-2;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+  list-style-position: inside;
 }
 </style>
