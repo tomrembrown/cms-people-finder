@@ -81,15 +81,7 @@ CREATE TABLE profiles_projects(
   PRIMARY KEY(profile_id, project_id)
 );
 
--- Create a default user in the profiles table. This is used as defaults for
--- all users before they edit the particular fields
-INSERT INTO login(id, email, password_hash, signup_date) VALUES
-  (0, 'princetoby@test.com', '$2b$10$nkg3O/LRDSEzVqqzouvvt.vy2vbo9t/ZZOcUngP7EN7UFg/uoFjLe', '2021-06-28 11:35:05.645');
-
-INSERT INTO profiles(id, handle, tagline, description) VALUES
-  (0, 'Toby the Cat', 'TOTALLY AWESOME MANIFESTATION OF INFINITE CONSCIOUSNESS', 
-      'As a cat, much of my time is spent either sleeping or manipulating humans into being my servants with my irresitible cuteness. I have found loud whiny noises useful for obtaining food and cuddles. Boxes are useful places to hide in. In the early evening strange lights (reflections from electronic device screens) appear on the ceiling and walls. I have tried communicated with these, but so far have not received a response.');
-
+-- Insert values into fields requiring them
 INSERT INTO interests(interest) VALUES
   ('Hiking'),
   ('Backpacking'),
@@ -125,3 +117,25 @@ INSERT INTO skills(skill) VALUES
 INSERT INTO user_types(id, type) VALUES
   (1, 'Lead'),
   (2, 'Collaborator');
+
+-- Create a default user in the profiles table. This is used as defaults for
+-- all users before they edit the particular fields
+INSERT INTO login(id, email, password_hash, signup_date) VALUES
+  (0, 'princetoby@test.com', '$2b$10$nkg3O/LRDSEzVqqzouvvt.vy2vbo9t/ZZOcUngP7EN7UFg/uoFjLe', '2021-06-28 11:35:05.645');
+
+INSERT INTO profiles(id, handle, tagline, description, aboutme, location) VALUES
+  (0, 'Toby the Cat', 'TOTALLY AWESOME MANIFESTATION OF INFINITE CONSCIOUSNESS', 
+      'As a cat, much of my time is spent either sleeping or manipulating humans into being my servants with my irresitible cuteness. I have found loud whiny noises useful for obtaining food and cuddles. Boxes are useful places to hide in. In the early evening strange lights (reflections from electronic device screens) appear on the ceiling and walls. I have tried communicated with these, but so far have not received a response.',
+      'I am a super cute kitty!!!', 'Toronto, Canada');
+
+INSERT INTO projects(id, title, description) VALUES
+  (0, 'Mega Cat Castle', 'Induce humans to build the mightest cat castle, complete with boxes and blankets');
+
+INSERT INTO profiles_interests(profile_id, interest_id, display_order) VALUES
+  (0, 4, 3), (0, 2, 4), (0, 1, 1), (0, 7, 2);
+
+INSERT INTO profiles_skills(profile_id, skill_id, display_order) VALUES
+  (0, 2, 1), (0, 8, 3), (0, 4, 2);
+
+INSERT INTO profiles_projects(profile_id, project_id, user_type, display_order) VALUES
+  (0, 0, 1, 1);
