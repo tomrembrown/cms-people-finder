@@ -67,38 +67,45 @@
         <h3 class="myprofilepage__subheading">About Me &amp; My Story</h3>
         <hr class="myprofilepage__maincontent__break" />
         <p class="myprofilepage__maincontent__text">
-          I lived with my Cat Mommy and Cat Daddy and my four siblings. Then I
-          moved and I was lonely. After a while my brother came to live with my
-          and I was happier.
+          {{ aboutme }}
         </p>
       </section>
       <section class="myprofilepage__interests">
         <h3 class="myprofilepage__subheading">Interests</h3>
         <hr class="myprofilepage__maincontent__break" />
         <ul class="myprofilepage__maincontent__list">
-          <li>Ear nibbling</li>
-          <li>Destroying furniture</li>
-          <li>Hiding in boxes</li>
+          <li v-for="interest in interests" :key="interest">
+            {{ interest }}
+          </li>
         </ul>
       </section>
       <section class="myprofilepage__skills">
         <h3 class="myprofilepage__subheading">Skills</h3>
         <hr class="myprofilepage__maincontent__break" />
         <ul class="myprofilepage__maincontent__list">
-          <li>Manipulating humans with cuteness</li>
+          <li v-for="skill in skills" :key="skill">
+            {{ skill }}
+          </li>
         </ul>
       </section>
       <section class="myprofilepage__projects">
         <h3 class="myprofilepage__subheading">
-          Projects &amp; Passions Would Like to Collaborate with Others On
+          Projects Would Like to Collaborate with Others On
         </h3>
         <hr class="myprofilepage__maincontent__break" />
-        <p class="myprofilepage__maincontent__text">Conquering all humanity</p>
+        <div v-for="project in projects" :key="project.title">
+          <p class="myprofilepage__maincontent__text">
+            {{ project.title }} ({{ project.user_type }})
+          </p>
+          <p class="myprofilepage__maincontent__text">
+            {{ project.description }}
+          </p>
+        </div>
       </section>
       <section class="myprofilepage__location">
         <h3 class="myprofilepage__subheading">Location</h3>
         <hr class="myprofilepage__maincontent__break" />
-        <p class="myprofilepage__maincontent__text">Toronto, Canada</p>
+        <p class="myprofilepage__maincontent__text">{{ location }}</p>
       </section>
     </section>
   </main>
@@ -124,6 +131,11 @@ export default {
       'description',
       'editMode',
       'image_filename',
+      'aboutme',
+      'location',
+      'interests',
+      'skills',
+      'projects',
     ]),
   },
   methods: {

@@ -6,6 +6,11 @@ const state = () => ({
   tagline: null,
   description: null,
   image_filename: '',
+  aboutme: '',
+  location: '',
+  interests: [],
+  skills: [],
+  projects: [],
   fieldsChanged: [],
   editMode: false,
 })
@@ -17,6 +22,11 @@ const mutations = {
     state.tagline = user.tagline
     state.description = user.description
     state.image_filename = user.image_filename
+    state.aboutme = user.aboutme
+    state.location = user.location
+    state.interests = user.interests
+    state.skills = user.skills
+    state.projects = user.projects
     state.fieldsChanged = []
   },
   setEditMode(state, newMode) {
