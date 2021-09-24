@@ -1,14 +1,14 @@
 'use strict'
 
-const getSkillList = async function (client, id) {
+const getSkillListForMember = async function (client, id) {
   try {
-    const getSkillListQuery =
+    const getSkillListForMemberQuery =
       'SELECT   s.skill AS skill ' +
       'FROM profiles_skills AS j ' +
       'INNER JOIN skills AS s ON (s.id = j.skill_id) ' +
       'WHERE j.profile_id=$1 ' +
       'ORDER BY j.display_order;'
-    const response = await client.query(getSkillListQuery, [id])
+    const response = await client.query(getSkillListForMemberQuery, [id])
     let data
     if (response.rowCount === 0) data = []
     else {
@@ -19,9 +19,9 @@ const getSkillList = async function (client, id) {
     }
     return data
   } catch (error) {
-    console.error(`Error in getSkillList: ${error.message}`)
-    throw new Error(`Error in getSkillList: ${error.message}`)
+    console.error(`Error in getSkillForMemberList: ${error.message}`)
+    throw new Error(`Error in getSkillForMemberList: ${error.message}`)
   }
 }
 
-module.exports = getSkillList
+module.exports = getSkillListForMember

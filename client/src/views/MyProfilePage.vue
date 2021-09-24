@@ -66,7 +66,14 @@
       <section class="myprofilepage__aboutme">
         <h3 class="myprofilepage__subheading">About Me &amp; My Story</h3>
         <hr class="myprofilepage__maincontent__break" />
-        <p class="myprofilepage__maincontent__text">
+        <p
+          :class="[
+            editMode ? 'myprofilepage--editable' : 'myprofilepage--viewonly',
+            'myprofilepage__maincontent__text',
+          ]"
+          :contenteditable="editMode"
+          @blur="changeFieldLocal('aboutme', $event)"
+        >
           {{ aboutme }}
         </p>
       </section>
@@ -75,7 +82,24 @@
         <hr class="myprofilepage__maincontent__break" />
         <ul class="myprofilepage__maincontent__list">
           <li v-for="interest in interests" :key="interest">
+            <font-awesome-icon
+              v-if="editMode"
+              class="myprofilepage__deletebutton__icon"
+              icon="trash-alt"
+              @click="deleteListItemLocal('interests', interest)"
+            />
             {{ interest }}
+          </li>
+          <li v-if="editMode">
+            <font-awesome-icon
+              class="myprofilepage__addbutton__icon"
+              icon="plus"
+            />
+            <MyAutoComplete
+              id="new_interest"
+              :options="all_interests"
+              @selection-made="addListItemLocal('interests', $event)"
+            />
           </li>
         </ul>
       </section>
@@ -114,7 +138,8 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
-import { getProfileImage } from '../api/api-client'
+import MyAutoComplete from '@/components/EditProfile/MyAutoComplete'
+import { getProfileImage, getCompleteInterestList } from '../api/api-client'
 
 const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
 const { mapActions } = createNamespacedHelpers('modal')
@@ -123,6 +148,12 @@ export default {
   name: 'MyProfilePage',
   components: {
     MyProfilePageEditButton,
+    MyAutoComplete,
+  },
+  data() {
+    return {
+      all_interests: [],
+    }
   },
   computed: {
     ...mapState([
@@ -139,7 +170,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations(['changeField']),
+    ...mapMutations(['changeField', 'deleteListItem', 'addListItem']),
     ...mapActions(['showFailure']),
     changeFieldLocal(field, event) {
       const payload = {
@@ -147,6 +178,20 @@ export default {
         value: event.target.innerText,
       }
       this.changeField(payload)
+    },
+    deleteListItemLocal(list, item) {
+      const payload = {
+        list: list,
+        item: item,
+      }
+      this.deleteListItem(payload)
+    },
+    addListItemLocal(list, item) {
+      const payload = {
+        list: list,
+        item: item,
+      }
+      this.addListItem(payload)
     },
     openFileInput() {
       this.$refs.fileInput.value = null
@@ -194,6 +239,10 @@ export default {
     },
   },
   mounted() {
+    getCompleteInterestList().then((all_interests) => {
+      this.all_interests = all_interests
+    })
+
     // Everything loaded - but image - use image filename to get from api
     if (this.image_filename) {
       getProfileImage(this.image_filename).then((image) => {
@@ -323,5 +372,9 @@ export default {
   line-height: 1rem;
   margin-bottom: 1rem;
   list-style-position: inside;
+}
+
+.myprofilepage__deletebutton__icon:hover {
+  color: red;
 }
 </style>

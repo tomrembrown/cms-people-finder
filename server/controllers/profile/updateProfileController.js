@@ -8,7 +8,7 @@
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const updateProfile = require('../../model/updateProfile')
 const processImage = require('../../utils/processImage')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const {
   validateId,
   validateHandle,
@@ -35,12 +35,17 @@ const updateProfileController = asyncMiddleware(async (req, res) => {
     fieldsToChange = await processImage(id, fieldsToChange)
   }
 
-  const client = new Client()
-  await client.connect()
+  const client = await poolConnect()
 
-  await updateProfile(client, id, fieldsToChange)
-  await client.end()
-  return res.json('success')
+  try {
+    await updateProfile(client, id, fieldsToChange)
+    return res.json('success')
+  } catch (error) {
+    console.error(`Error in updateProfileController: ${error.message}`)
+    throw new Error(`Error in updateProfileController ${error.message}`)
+  } finally {
+    client.release()
+  }
 })
 
 module.exports = updateProfileController

@@ -7,7 +7,7 @@
 
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const updateHandle = require('../../model/updateHandle')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const {
   validateId,
   validateHandle,
@@ -25,12 +25,17 @@ const updateHandleController = asyncMiddleware(async (req, res) => {
     return res.json(errorString)
   }
 
-  const client = new Client()
-  await client.connect()
+  const client = await poolConnect()
 
-  await updateHandle(client, id, handle)
-  await client.end()
-  return res.json('success')
+  try {
+    await updateHandle(client, id, handle)
+    return res.json('success')
+  } catch (error) {
+    console.error(`Error in updateHandleController: ${error.message}`)
+    throw new Error(`Error in updateHandleController: ${error.message}`)
+  } finally {
+    client.release()
+  }
 })
 
 module.exports = updateHandleController

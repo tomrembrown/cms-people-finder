@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const signup = require('../../model/signup')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const {
   validateHandle,
   validateEmail,
@@ -32,29 +32,33 @@ const signupController = asyncMiddleware(async (req, res) => {
     return res.json(errorString)
   }
 
-  const client = new Client()
-  await client.connect()
+  const client = await poolConnect()
 
-  const [emailTaken, handleTaken] = await Promise.all([
-    checkEmailTaken(client, email),
-    checkHandleTaken(client, handle),
-  ])
+  try {
+    const [emailTaken, handleTaken] = await Promise.all([
+      checkEmailTaken(client, email),
+      checkHandleTaken(client, handle),
+    ])
 
-  if (emailTaken) errorArray.push('email taken')
-  if (handleTaken) errorArray.push('handle taken')
+    if (emailTaken) errorArray.push('email taken')
+    if (handleTaken) errorArray.push('handle taken')
 
-  if (errorArray.length > 0) {
-    const errorString = errorArray.join()
-    client.end()
-    return res.json(errorString)
+    if (errorArray.length > 0) {
+      const errorString = errorArray.join()
+      return res.json(errorString)
+    }
+
+    const signup_date = new Date()
+    const password_hash = await bcrypt.hash(password, saltRounds)
+
+    const data = await signup(client, email, password_hash, signup_date, handle)
+    return res.json(data)
+  } catch (error) {
+    console.error(`Error in  signupController: ${error.message}`)
+    throw new Error(`Error in  signupController: ${error.message}`)
+  } finally {
+    client.release()
   }
-
-  const signup_date = new Date()
-  const password_hash = await bcrypt.hash(password, saltRounds)
-
-  const data = await signup(client, email, password_hash, signup_date, handle)
-  client.end()
-  return res.json(data)
 })
 
 module.exports = signupController

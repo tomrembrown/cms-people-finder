@@ -82,19 +82,6 @@ CREATE TABLE profiles_projects(
 );
 
 -- Insert values into fields requiring them
-INSERT INTO interests(interest) VALUES
-  ('Hiking'),
-  ('Backpacking'),
-  ('Camping'),
-  ('Hunting'),
-  ('Fishing'),
-  ('Archery'),
-  ('Canoeing'),
-  ('Kayaking'),
-  ('Running'),
-  ('Geocaching'),
-  ('Growing Vegetables'),
-  ('Composting');
 
 INSERT INTO skills(skill) VALUES
   ('Conflict Resolution'),
@@ -130,9 +117,6 @@ INSERT INTO profiles(id, handle, tagline, description, aboutme, location) VALUES
 
 INSERT INTO projects(id, title, description) VALUES
   (0, 'Mega Cat Castle', 'Induce humans to build the mightest cat castle, complete with boxes and blankets');
-
-INSERT INTO profiles_interests(profile_id, interest_id, display_order) VALUES
-  (0, 4, 3), (0, 2, 4), (0, 1, 1), (0, 7, 2);
 
 INSERT INTO profiles_skills(profile_id, skill_id, display_order) VALUES
   (0, 2, 1), (0, 8, 3), (0, 4, 2);

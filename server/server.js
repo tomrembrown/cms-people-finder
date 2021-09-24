@@ -25,6 +25,7 @@ global.appRoot = path.resolve(__dirname)
 // Require the routes for the REST API
 const authRoutes = require('./routes/auth')
 const profileRoutes = require('./routes/profile')
+const generalRoutes = require('./routes/general')
 
 const app = express()
 
@@ -45,6 +46,7 @@ app.set('port', process.env.PORT)
 // REST API endpoints
 app.use(authRoutes)
 app.use(profileRoutes)
+app.use(generalRoutes)
 
 let logString =
   'Express started on ' + app.get('port') + '; press Ctrl-C to terminate'

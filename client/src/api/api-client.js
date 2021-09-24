@@ -30,6 +30,12 @@ export const getProfileImage = (image_filename) => {
   }).then((response) => response.blob())
 }
 
+export const getCompleteInterestList = () => {
+  return fetch(endpoint + 'interests', {
+    method: 'GET',
+  }).then((response) => response.json())
+}
+
 export const checkHandleTaken = (handle) => {
   const queryString = '?handle=' + handle
   const totalURI = endpoint + 'checkHandleTaken/' + encodeURI(queryString)

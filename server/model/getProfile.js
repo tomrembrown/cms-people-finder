@@ -1,8 +1,8 @@
 'use strict'
 
-const getInterestList = require('./getInterestList')
-const getSkillList = require('./getSkillList')
-const getProjectList = require('./getProjectList')
+const getInterestListForMember = require('./getInterestListForMember')
+const getSkillListForMember = require('./getSkillListForMember')
+const getProjectListForMember = require('./getProjectListForMember')
 
 const getProfile = async function (client, id) {
   try {
@@ -17,9 +17,9 @@ const getProfile = async function (client, id) {
       data = response.rows[0]
 
       // Add info from other tables to this data
-      data.interests = await getInterestList(client, id)
-      data.skills = await getSkillList(client, id)
-      data.projects = await getProjectList(client, id)
+      data.interests = await getInterestListForMember(client, id)
+      data.skills = await getSkillListForMember(client, id)
+      data.projects = await getProjectListForMember(client, id)
     }
     return data
   } catch (error) {

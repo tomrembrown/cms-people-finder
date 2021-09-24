@@ -8,7 +8,7 @@
 
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const deleteProfile = require('../../model/deleteProfile')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const { validateId } = require('../../validation/commonValidation')
 
 const deleteProfileController = asyncMiddleware(async (req, res) => {
@@ -16,11 +16,17 @@ const deleteProfileController = asyncMiddleware(async (req, res) => {
 
   if (!validateId(id)) return res.json('invalid id')
 
-  const client = new Client()
-  await client.connect()
-  await deleteProfile(client, id)
-  await client.end()
-  res.json('success')
+  const client = await poolConnect()
+
+  try {
+    await deleteProfile(client, id)
+    res.json('success')
+  } catch (error) {
+    console.error(`Error in  deleteProfileController: ${error.message}`)
+    throw new Error(`Error in  deleteProfileController: ${error.message}`)
+  } finally {
+    client.release()
+  }
 })
 
 module.exports = deleteProfileController

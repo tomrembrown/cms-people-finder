@@ -8,7 +8,7 @@
 
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const getProfile = require('../../model/getProfile')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const { validateId } = require('../../validation/commonValidation')
 
 const getProfileController = asyncMiddleware(async (req, res) => {
@@ -16,12 +16,17 @@ const getProfileController = asyncMiddleware(async (req, res) => {
 
   if (!validateId(id)) return res.json('invalid id')
 
-  const client = new Client()
-  await client.connect()
-  const data = await getProfile(client, id)
-  await client.end()
-  if (data.length === 0) return res.json('Profile not found')
-  else return res.json(data)
+  const client = await poolConnect()
+  try {
+    const data = await getProfile(client, id)
+    if (data.length === 0) return res.json('Profile not found')
+    else return res.json(data)
+  } catch (error) {
+    console.error(`Error in getProfileController: ${error.message}`)
+    throw new Error(`Error in getProfileController: ${error.message}`)
+  } finally {
+    client.release()
+  }
 })
 
 module.exports = getProfileController

@@ -36,6 +36,21 @@ const mutations = {
     state[payload.field] = payload.value
     state.fieldsChanged.push(payload.field)
   },
+  deleteListItem(state, payload) {
+    let tempList = state[payload.list]
+    const index = tempList.indexOf(payload.item)
+    if (index !== -1) {
+      tempList.splice(index, 1)
+    }
+    state[payload.list] = tempList
+    state.fieldsChanged.push(payload.list)
+  },
+  addListItem(state, payload) {
+    let tempList = state[payload.list]
+    tempList.push(payload.item)
+    state[payload.list] = tempList
+    state.fieldsChanged.push(payload.list)
+  },
   resetFieldsChanged(state) {
     state.fieldsChanged = []
   },

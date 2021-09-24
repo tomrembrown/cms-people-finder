@@ -13,7 +13,7 @@
 
 const asyncMiddleware = require('../../utils/asyncMiddleware')
 const checkHandleTaken = require('../../model/checkHandleTaken')
-const { Client } = require('pg')
+const poolConnect = require('../../model/poolConnect')
 const { validateHandle } = require('../../validation/commonValidation')
 
 const checkHandleTakenController = asyncMiddleware(async (req, res) => {
@@ -21,11 +21,16 @@ const checkHandleTakenController = asyncMiddleware(async (req, res) => {
 
   if (!validateHandle(handle)) return res.json('invalid handle')
 
-  const client = new Client()
-  await client.connect()
-  const handleTaken = await checkHandleTaken(client, handle)
-  await client.end()
-  res.json({ handleTaken })
+  const client = await poolConnect()
+  try {
+    const handleTaken = await checkHandleTaken(client, handle)
+    res.json({ handleTaken })
+  } catch (error) {
+    console.error(`Error in checkHandleTakenController: ${error.message}`)
+    throw new Error(`Error in checkHandleTakenController: ${error.message}`)
+  } finally {
+    client.release()
+  }
 })
 
 module.exports = checkHandleTakenController
