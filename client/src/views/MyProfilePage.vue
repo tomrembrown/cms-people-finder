@@ -81,13 +81,33 @@
         <h3 class="myprofilepage__subheading">Interests</h3>
         <hr class="myprofilepage__maincontent__break" />
         <ul class="myprofilepage__maincontent__list">
-          <li v-for="interest in interests" :key="interest">
+          <li v-for="(interest, index) in interests" :key="interest">
             <font-awesome-icon
               v-if="editMode"
               class="myprofilepage__deletebutton__icon"
               icon="trash-alt"
-              @click="deleteListItemLocal('interests', interest)"
+              @click="deleteListItemLocal('interests', index)"
             />
+            <!-- <font-awesome-icon
+              v-if="editMode"
+              :class="[
+                index === 0 ? 'myprofilepage__icon--invisible' : '',
+                'myprofilepage__upbutton__icon',
+              ]"
+              icon="arrow-up"
+              @click="upListItemLocal('interests', index)"
+            />
+            <font-awesome-icon
+              v-if="editMode"
+              :class="[
+                index === interests.length - 1
+                  ? 'myprofilepage__icon--invisible'
+                  : '',
+                'myprofilepage__downbutton__icon',
+              ]"
+              icon="arrow-down"
+              @click="downListItemLocal('interests', index)"
+            /> -->
             {{ interest }}
           </li>
           <li v-if="editMode">
@@ -140,6 +160,7 @@ import { createNamespacedHelpers } from 'vuex'
 import MyProfilePageEditButton from '@/components/EditProfile/MyProfilePageEditButton'
 import MyAutoComplete from '@/components/EditProfile/MyAutoComplete'
 import { getProfileImage, getCompleteInterestList } from '../api/api-client'
+// import { throttle } from 'lodash'
 
 const { mapState, mapMutations } = createNamespacedHelpers('myprofile')
 const { mapActions } = createNamespacedHelpers('modal')
@@ -170,7 +191,13 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations(['changeField', 'deleteListItem', 'addListItem']),
+    ...mapMutations([
+      'changeField',
+      'deleteListItem',
+      'addListItem',
+      'upListItem',
+      'downListItem',
+    ]),
     ...mapActions(['showFailure']),
     changeFieldLocal(field, event) {
       const payload = {
@@ -179,10 +206,10 @@ export default {
       }
       this.changeField(payload)
     },
-    deleteListItemLocal(list, item) {
+    deleteListItemLocal(list, index) {
       const payload = {
         list: list,
-        item: item,
+        index: index,
       }
       this.deleteListItem(payload)
     },
@@ -192,6 +219,26 @@ export default {
         item: item,
       }
       this.addListItem(payload)
+    },
+    upListItemLocal(list, index) {
+      console.log('In upListItemLocal: index: ' + index)
+      if (index > 0) {
+        const payload = {
+          list: list,
+          index: index,
+        }
+        this.upListItem(payload)
+      }
+    },
+    downListItemLocal(list, index) {
+      console.log('In downlListItemLocal: index: ' + index)
+      if (index < this[list].length - 1) {
+        const payload = {
+          list: list,
+          index: index,
+        }
+        this.downListItem(payload)
+      }
     },
     openFileInput() {
       this.$refs.fileInput.value = null
@@ -372,6 +419,22 @@ export default {
   line-height: 1rem;
   margin-bottom: 1rem;
   list-style-position: inside;
+}
+
+.myprofilepage__deletebutton__icon,
+.myprofilepage__upbutton__icon,
+.myprofilepage__downbutton__icon {
+  cursor: pointer;
+  margin: 0 0.1rem;
+}
+
+.myprofilepage__addbutton__icon {
+  margin: 0 0.1rem;
+}
+
+.myprofilepage__icon--invisible {
+  cursor: default;
+  opacity: 0;
 }
 
 .myprofilepage__deletebutton__icon:hover {

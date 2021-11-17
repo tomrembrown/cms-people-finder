@@ -1,5 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faArrowDown,
+  faArrowUp,
   faPencilAlt,
   faPlus,
   faPortrait,
@@ -11,7 +13,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-library.add(faPencilAlt, faPortrait, faTrashAlt, faPlus)
+library.add(faPencilAlt, faPortrait, faTrashAlt, faPlus, faArrowUp, faArrowDown)
 
 createApp(App)
   .use(store)

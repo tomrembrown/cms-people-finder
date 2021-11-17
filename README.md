@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-1. Ensure node nd yarn are installed. Since lerna is built on yarn, this uses yarn as the package manager. Node must be at least version 14. This project is just static pages with a contact page - so it does not contain any database.
+1. Ensure node and yarn are installed. Since lerna is built on yarn, this uses yarn as the package manager. Node must be at least version 14.
 
 2. Clone GIT repository and download
 

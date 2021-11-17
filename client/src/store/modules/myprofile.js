@@ -8,9 +8,9 @@ const state = () => ({
   image_filename: '',
   aboutme: '',
   location: '',
-  interests: [],
-  skills: [],
-  projects: [],
+  interests: {},
+  skills: {},
+  projects: {},
   fieldsChanged: [],
   editMode: false,
 })
@@ -34,22 +34,49 @@ const mutations = {
   },
   changeField(state, payload) {
     state[payload.field] = payload.value
-    state.fieldsChanged.push(payload.field)
+    if (!state.fieldsChanged.includes(payload.field))
+      state.fieldsChanged.push(payload.field)
   },
   deleteListItem(state, payload) {
     let tempList = state[payload.list]
-    const index = tempList.indexOf(payload.item)
-    if (index !== -1) {
-      tempList.splice(index, 1)
-    }
+    tempList.splice(payload.index, 1)
     state[payload.list] = tempList
-    state.fieldsChanged.push(payload.list)
+    if (!state.fieldsChanged.includes(payload.list))
+      state.fieldsChanged.push(payload.list)
   },
   addListItem(state, payload) {
     let tempList = state[payload.list]
     tempList.push(payload.item)
     state[payload.list] = tempList
-    state.fieldsChanged.push(payload.list)
+    if (!state.fieldsChanged.includes(payload.list))
+      state.fieldsChanged.push(payload.list)
+  },
+  upListItem(state, payload) {
+    let tempList = [...state[payload.list]]
+    console.log('upListItem - start list: ')
+    console.log(tempList)
+    console.log('index: ' + payload.index)
+    //swapArrayItems(tempList, payload.index, payload.index - 1)
+    const item1 = tempList.splice(payload.index, 1)
+    console.log('After first splice: ')
+    console.log(tempList)
+    tempList.splice(payload.index - 1, 0, item1[0])
+    console.log('upListItem - new temp list')
+    console.log(tempList)
+    delete state[payload.list]
+    state[payload.list] = [...tempList]
+    if (!state.fieldsChanged.includes(payload.list))
+      state.fieldsChanged.push(payload.list)
+  },
+  downListItem(state, payload) {
+    let tempList = [...state[payload.list]]
+    //swapArrayItems(tempList, payload.index, payload.index + 1)
+    const item1 = tempList.splice(payload.index + 1, 1)
+    tempList.splice(payload.index, 0, item1[0])
+    delete state[payload.list]
+    state[payload.list] = [...tempList]
+    if (!state.fieldsChanged.includes(payload.list))
+      state.fieldsChanged.push(payload.list)
   },
   resetFieldsChanged(state) {
     state.fieldsChanged = []
